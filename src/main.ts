@@ -14,7 +14,10 @@ app.use(createPinia())
 app.use(router)
 app.use(PrimeVue, {
   theme: {
-    preset: Aura
+    preset: Aura,
+    options: {
+      darkModeSelector: '.arena-bricks-calculator-dark-mode'
+    }
   }
 })
 app.mount('#arena_bricks_calculator_app')
