@@ -2,17 +2,16 @@
 import PhWallFill from '~icons/ph/wall-fill'
 import FeInfo from '~icons/fe/info'
 import MaterialSymbolsWidth from '~icons/material-symbols/width'
-import MaterialSymbolsHeight from '~icons/material-symbols/height';
+import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import Stepper from 'primevue/stepper'
 import StepItem from 'primevue/stepitem'
 import StepPanel from 'primevue/steppanel'
-import Panel from 'primevue/panel';
+import Panel from 'primevue/panel'
 import Step from 'primevue/step'
 import Button from 'primevue/button'
 import InputNumber from 'primevue/inputnumber'
 import InputGroup from 'primevue/inputgroup'
 import Select from 'primevue/select'
-import Card from 'primevue/card'
 import InputGroupAddon from 'primevue/inputgroupaddon'
 import { ref } from 'vue'
 import type { Unit } from '@/types/units'
@@ -40,32 +39,62 @@ const selectedUnit = ref<Unit>(units.value[0])
               <h4 class="text-2xl font-bold text-color">Muro 1</h4>
             </div>
           </template>
-          <label for="width" class="block mb-3 flex gap-2 items-center"><i class="inline">
+          <label for="width" class="block mb-3 flex gap-2 items-center"
+            ><i class="inline">
               <FeInfo class="inline" />
             </i>
-            Ancho</label>
+            Ancho</label
+          >
           <InputGroup class="mb-5">
             <InputGroupAddon>
               <MaterialSymbolsWidth class="text-2xl" />
             </InputGroupAddon>
-            <InputNumber v-model="h" inputId="width" :useGrouping="false" :minFractionDigits="0" :maxFractionDigits="5"
-              locale="es-ES" style="width: 100%" />
-            <Select v-model="selectedUnit" :options="units" optionLabel="name" placeholder="m" class="grow-0 w-auto"
-              style="width: unset" />
+            <InputNumber
+              v-model="h"
+              inputId="width"
+              :useGrouping="false"
+              :minFractionDigits="0"
+              :maxFractionDigits="5"
+              locale="es-ES"
+              style="width: 100%"
+            />
+            <Select
+              v-model="selectedUnit"
+              :options="units"
+              optionLabel="name"
+              placeholder="m"
+              class="grow-0 w-auto"
+              style="width: unset"
+            />
           </InputGroup>
 
-          <label for="height" class="block mb-3 flex gap-2 items-center"><i class="inline">
+          <label for="height" class="block mb-3 flex gap-2 items-center"
+            ><i class="inline">
               <FeInfo class="inline" />
             </i>
-            Alto</label>
+            Alto</label
+          >
           <InputGroup class="mb-5">
             <InputGroupAddon>
               <MaterialSymbolsHeight class="text-2xl" />
             </InputGroupAddon>
-            <InputNumber v-model="h" inputId="height" :useGrouping="false" :minFractionDigits="0" :maxFractionDigits="5"
-              locale="es-ES" style="width: 100%" />
-            <Select v-model="selectedUnit" :options="units" optionLabel="name" placeholder="m" class="grow-0 w-auto"
-              style="width: unset" />
+            <InputNumber
+              v-model="h"
+              inputId="height"
+              :useGrouping="false"
+              :minFractionDigits="0"
+              :maxFractionDigits="5"
+              locale="es-ES"
+              style="width: 100%"
+            />
+            <Select
+              v-model="selectedUnit"
+              :options="units"
+              optionLabel="name"
+              placeholder="m"
+              class="grow-0 w-auto"
+              style="width: unset"
+            />
           </InputGroup>
           <p>Area Calculada: 45 m2</p>
         </Panel>

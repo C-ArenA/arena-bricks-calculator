@@ -18,7 +18,7 @@ const menuItems = ref<MenuItem[]>([
     command: () => router.push('/calculator')
   }
 ])
-const isDarkMode = ref(false);
+const isDarkMode = ref(false)
 const toggleDarkMode = () => {
   const element = document.querySelector('html')
   if (isDarkMode.value) {
@@ -32,12 +32,15 @@ const toggleDarkMode = () => {
 <template>
   <header class="">
     <Menubar class="m-2" :model="menuItems">
-      <template #start>
-        ArenA Bricks Calculator
-      </template>
+      <template #start> ArenA Bricks Calculator </template>
       <template #end>
-        <ToggleButton v-model="isDarkMode" onLabel="🌛" offLabel="🌞" @change="toggleDarkMode()"
-          class="bg-transparent" />
+        <ToggleButton
+          v-model="isDarkMode"
+          onLabel="🌛"
+          offLabel="🌞"
+          @change="toggleDarkMode()"
+          class="bg-transparent"
+        />
       </template>
     </Menubar>
   </header>
@@ -48,7 +51,7 @@ const toggleDarkMode = () => {
 
 <style scoped></style>
 <style>
-html{
+html {
   background-color: var(--p-primary-contrast-color);
 }
 </style>
