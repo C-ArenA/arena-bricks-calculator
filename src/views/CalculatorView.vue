@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import PhWallFill from '~icons/ph/wall-fill'
-import MaterialSymbolsWidth from '~icons/material-symbols/width'
-import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import Stepper from 'primevue/stepper'
 import StepItem from 'primevue/stepitem'
 import StepPanel from 'primevue/steppanel'
-import Panel from 'primevue/panel'
 import Step from 'primevue/step'
 import Button from 'primevue/button'
 import { ref } from 'vue'
-import QuantityInput from '@/components/QuantityInput.vue'
-const wallWidth = ref(0)
-const wallHeight = ref(0)
+import WallForm from '@/components/WallForm.vue'
+
 </script>
 
 <template>
@@ -24,29 +19,7 @@ const wallHeight = ref(0)
       <StepItem value="1">
         <Step>Definir Dimensiones del Muro</Step>
         <StepPanel header="fdfd" v-slot="{ activateCallback }">
-          <Panel header="Muro" toggleable>
-            <template #header>
-              <div class="flex items-center gap-4">
-                <PhWallFill class="text-2xl" />
-                <h4 class="text-2xl font-bold text-color">Muro 1</h4>
-              </div>
-            </template>
-            <QuantityInput
-              v-model="wallWidth"
-              dimensionName="length"
-              inputLabel="Ancho del Muro"
-              inputId="wall_width"
-              :iconComponent="MaterialSymbolsWidth"
-            />
-            <QuantityInput
-              v-model="wallHeight"
-              dimensionName="length"
-              inputLabel="Alto del Muro"
-              inputId="wall_height"
-              :iconComponent="MaterialSymbolsHeight"
-            />
-            <p>Area Calculada: {{ wallWidth * wallHeight }} m2</p>
-          </Panel>
+          <WallForm />
           <div class="flex justify-center mt-6">
             <Button icon="pi pi-plus" severity="secondary" iconPos="bottom" rounded />
           </div>
