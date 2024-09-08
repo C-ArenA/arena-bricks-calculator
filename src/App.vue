@@ -16,6 +16,10 @@ const menuItems = ref<MenuItem[]>([
     label: 'Calculadora',
     icon: 'pi pi-calculator',
     command: () => router.push('/calculator')
+  },
+  {
+    label: 'Pruebas',
+    command: () => router.push('/pruebas')
   }
 ])
 const isDarkMode = ref(false)
@@ -32,15 +36,10 @@ const toggleDarkMode = () => {
 <template>
   <header class="">
     <Menubar class="m-2" :model="menuItems">
-      <template #start> ArenA Bricks Calculator </template>
+      <template #start> <img src="@/assets/logos/imago_arena.png" alt="logo" class="max-h-6 mr-2" /> </template>
       <template #end>
-        <ToggleButton
-          v-model="isDarkMode"
-          onLabel="🌛"
-          offLabel="🌞"
-          @change="toggleDarkMode()"
-          class="bg-transparent"
-        />
+        <ToggleButton v-model="isDarkMode" onLabel="🌛" offLabel="🌞" @change="toggleDarkMode()"
+          class="bg-transparent" />
       </template>
     </Menubar>
   </header>
