@@ -4,7 +4,7 @@ import MaterialSymbolsWidth from '~icons/material-symbols/width'
 import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import Panel from 'primevue/panel'
 import { ref } from 'vue'
-import QuantityInput from '@/components/QuantityInput.vue'
+import QuantityInput from '@/components/molecules/QuantityInput.vue'
 const wallWidth = ref(0)
 const wallHeight = ref(0)
 </script>

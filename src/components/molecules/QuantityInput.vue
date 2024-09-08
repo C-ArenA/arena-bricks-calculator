@@ -8,7 +8,7 @@ import FeInfo from '~icons/fe/info'
 // Imports
 import { ref } from 'vue'
 import type { Unit, DimensionString } from '@/types/quantities'
-import UnitsSelect from './UnitsSelect.vue'
+import UnitsSelect from '../atoms/UnitsSelect.vue'
 
 // --------- ACTUAL CODE ---------
 interface Props {
