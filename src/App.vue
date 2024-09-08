@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import Menubar from 'primevue/menubar'
-import ToggleButton from 'primevue/togglebutton'
 import { useRouter } from 'vue-router'
 import type { MenuItem } from 'primevue/menuitem'
 import { ref } from 'vue'
+import LightDarkToggle from './components/atoms/LightDarkToggle.vue'
 const router = useRouter()
 const menuItems = ref<MenuItem[]>([
   {
@@ -24,15 +24,6 @@ const menuItems = ref<MenuItem[]>([
     target: '_blank'
   }
 ])
-const isDarkMode = ref(false)
-const toggleDarkMode = () => {
-  const element = document.querySelector('html')
-  if (isDarkMode.value) {
-    element?.classList.add('arena-bricks-calculator-dark-mode')
-  } else {
-    element?.classList.remove('arena-bricks-calculator-dark-mode')
-  }
-}
 </script>
 
 <template>
@@ -42,13 +33,7 @@ const toggleDarkMode = () => {
         <img src="@/assets/logos/imago_arena.png" alt="logo" class="max-h-6 mr-2" />
       </template>
       <template #end>
-        <ToggleButton
-          v-model="isDarkMode"
-          onLabel="🌛"
-          offLabel="🌞"
-          @change="toggleDarkMode()"
-          class="bg-transparent"
-        />
+        <LightDarkToggle />
       </template>
     </Menubar>
   </header>
@@ -56,10 +41,3 @@ const toggleDarkMode = () => {
     <RouterView />
   </main>
 </template>
-
-<style scoped></style>
-<style>
-html {
-  background-color: var(--p-primary-contrast-color);
-}
-</style>

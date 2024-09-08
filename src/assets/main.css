@@ -1,1 +1,4 @@
 @import './base.css';
+html {
+  background-color: var(--p-primary-contrast-color);
+}
