@@ -18,9 +18,10 @@ const menuItems = ref<MenuItem[]>([
     command: () => router.push('/calculator')
   },
   {
-    label: 'Pruebas',
-    icon: 'pi pi-pencil',
-    command: () => router.push('/pruebas')
+    label: 'Storybook',
+    icon: 'pi pi-book',
+    url: 'http://localhost:6006/',
+    target: '_blank'
   }
 ])
 const isDarkMode = ref(false)
