@@ -19,6 +19,7 @@ const menuItems = ref<MenuItem[]>([
   },
   {
     label: 'Pruebas',
+    icon: 'pi pi-pencil',
     command: () => router.push('/pruebas')
   }
 ])
