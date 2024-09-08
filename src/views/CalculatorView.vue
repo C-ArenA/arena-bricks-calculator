@@ -16,8 +16,10 @@ const wallHeight = ref(0)
 
 <template>
   <section class="max-w-4xl mx-auto my-12">
-    <h2 class="text-4xl font-extrabold text-color mb-12 text-center">Calculadora de Ladrillos <span
-        class="underline underline-offset-4 text-primary-300">ArenA</span></h2>
+    <h2 class="text-4xl font-extrabold text-color mb-12 text-center">
+      Calculadora de Ladrillos
+      <span class="underline underline-offset-4 text-primary-300">ArenA</span>
+    </h2>
     <Stepper value="1">
       <StepItem value="1">
         <Step>Definir Dimensiones del Muro</Step>
@@ -29,10 +31,20 @@ const wallHeight = ref(0)
                 <h4 class="text-2xl font-bold text-color">Muro 1</h4>
               </div>
             </template>
-            <QuantityInput v-model="wallWidth" dimensionName="length" inputLabel="Ancho del Muro" inputId="wall_width"
-              :iconComponent="MaterialSymbolsWidth" />
-            <QuantityInput v-model="wallHeight" dimensionName="length" inputLabel="Alto del Muro" inputId="wall_height"
-              :iconComponent="MaterialSymbolsHeight" />
+            <QuantityInput
+              v-model="wallWidth"
+              dimensionName="length"
+              inputLabel="Ancho del Muro"
+              inputId="wall_width"
+              :iconComponent="MaterialSymbolsWidth"
+            />
+            <QuantityInput
+              v-model="wallHeight"
+              dimensionName="length"
+              inputLabel="Alto del Muro"
+              inputId="wall_height"
+              :iconComponent="MaterialSymbolsHeight"
+            />
             <p>Area Calculada: {{ wallWidth * wallHeight }} m2</p>
           </Panel>
           <div class="flex justify-center mt-6">

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Select from 'primevue/select';
+import Select from 'primevue/select'
 import { ref, watchEffect } from 'vue'
 import type { Unit, DimensionString } from '@/types/quantities'
-import { dimensions, units } from '@/data/units';
+import { dimensions, units } from '@/data/units'
 
 interface Props {
-    dimensionName: DimensionString
+  dimensionName: DimensionString
 }
 const props = defineProps<Props>()
 
@@ -13,13 +13,19 @@ const selectedUnit = defineModel<Unit | undefined>()
 const filteredUnits = ref<Unit[]>([])
 
 watchEffect(() => {
-    console.log('Miro props')
-    filteredUnits.value = units.filter(unit => unit.dimensionName === props.dimensionName)
-    selectedUnit.value = dimensions.find(d => d.name === props.dimensionName)?.baseUnit
+  console.log('Miro props')
+  filteredUnits.value = units.filter((unit) => unit.dimensionName === props.dimensionName)
+  selectedUnit.value = dimensions.find((d) => d.name === props.dimensionName)?.baseUnit
 })
 </script>
 
 <template>
-    <Select v-model="selectedUnit" :options="filteredUnits" optionLabel="symbol" placeholder="ux"
-        class="grow-0 w-auto" style="width: unset" />
+  <Select
+    v-model="selectedUnit"
+    :options="filteredUnits"
+    optionLabel="symbol"
+    placeholder="ux"
+    class="grow-0 w-auto"
+    style="width: unset"
+  />
 </template>

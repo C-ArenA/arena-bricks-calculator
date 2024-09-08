@@ -37,10 +37,17 @@ const toggleDarkMode = () => {
 <template>
   <header class="">
     <Menubar class="m-2" :model="menuItems">
-      <template #start> <img src="@/assets/logos/imago_arena.png" alt="logo" class="max-h-6 mr-2" /> </template>
+      <template #start>
+        <img src="@/assets/logos/imago_arena.png" alt="logo" class="max-h-6 mr-2" />
+      </template>
       <template #end>
-        <ToggleButton v-model="isDarkMode" onLabel="🌛" offLabel="🌞" @change="toggleDarkMode()"
-          class="bg-transparent" />
+        <ToggleButton
+          v-model="isDarkMode"
+          onLabel="🌛"
+          offLabel="🌞"
+          @change="toggleDarkMode()"
+          class="bg-transparent"
+        />
       </template>
     </Menubar>
   </header>
