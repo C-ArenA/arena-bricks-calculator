@@ -26,6 +26,7 @@ const quantity = defineModel<number>({
   get: (quantityWithBaseUnit) => fromBaseUnit(quantityWithBaseUnit, unit.value) // Como lo obtengo en el Child
 })
 const unit = ref<Unit | undefined>()
+const showInstructions = ref(false)
 const toBaseUnit = (quantity: number, unit?: Unit): number => {
   return unit ? quantity * unit.conversionFactorToBase : 0
 }
@@ -35,28 +36,37 @@ const fromBaseUnit = (quantity: number, unit?: Unit): number => {
 </script>
 
 <template>
-  <div>
-    <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center"
-      ><i class="inline">
+  <div class="my-3">
+    <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center"><Button v-if="instructions"
+        class="inline" @click="showInstructions = !showInstructions">
         <FeInfo class="inline" />
-      </i>
-      {{ inputLabel }}</label
-    >
+      </Button>
+      {{ inputLabel }}</label>
+    <Transition>
+      <p v-if="showInstructions" class="text-sm text-muted-color mb-2">{{ instructions }}</p>
+    </Transition>
 
-    <InputGroup class="mb-5">
+    <InputGroup>
       <InputGroupAddon>
         <component v-if="iconComponent" :is="iconComponent" class="text-2xl" />
       </InputGroupAddon>
-      <InputNumber
-        v-model="quantity"
-        :inputId="inputId"
-        :useGrouping="false"
-        :minFractionDigits="0"
-        :maxFractionDigits="5"
-        locale="es-ES"
-        style="width: 100%"
-      />
-      <UnitsSelect v-model="unit" :dimensionName="dimensionName" />
+      <InputNumber v-model="quantity" :inputId="inputId" :useGrouping="false" :minFractionDigits="0"
+        :maxFractionDigits="5" locale="es-ES" style="width: 100%" />
+      <UnitsSelect v-model="unit" :dimensionName="dimensionName" class="grow-0 w-auto" style="width: unset" />
     </InputGroup>
   </div>
 </template>
+
+<style scoped>
+/* we will explain what these classes do next! */
+.v-enter-active,
+.v-leave-active {
+  transition: transform 0.2s ease, opacity 0.2s ease, display 0.2s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: scaleY(0);
+}
+</style>

@@ -24,8 +24,6 @@ watchEffect(() => {
     v-model="selectedUnit"
     :options="filteredUnits"
     optionLabel="symbol"
-    placeholder="ux"
-    class="grow-0 w-auto"
-    style="width: unset"
+    placeholder="u"
   />
 </template>
