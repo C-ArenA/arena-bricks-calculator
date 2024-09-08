@@ -1,18 +1,20 @@
 // quantities.ts
+export type DimensionString = 'time' | 'length' | 'area' | 'volume' | 'mass'
 export type Dimension = {
-  name: string // e.g. Length | Area | Volume | Weight
+  name: DimensionString // e.g. Length | Area | Volume | Weight
+  descriptiveName?: string
   symbol: string // e.g. L | L^2 | L^3 | M
   baseUnit?: Unit // e.g. m |  m^2 | m^3 | kg	
 }
 
 export type Unit = {
-  dimension: Dimension 
+  dimensionName: DimensionString 
   name: string // e.g. Meter
   symbol: string // e.g. m
-  conversionFactorToBase?: number // e.g. 1
+  conversionFactorToBase: number // e.g. 1
 }
 
-export type Quantity = {
-    value: number
+export type Magnitude = {
+    quantity: number
     unit?: Unit
 }
