@@ -1,49 +1,54 @@
 <script setup lang="ts">
+// Components
 import InputGroup from 'primevue/inputgroup';
 import InputGroupAddon from 'primevue/inputgroupaddon';
 import InputNumber from 'primevue/inputnumber';
-import Select from 'primevue/select';
+// Icons
 import FeInfo from '~icons/fe/info'
-import MaterialSymbolsWidth from '~icons/material-symbols/width'
-import { onBeforeMount, onMounted, ref } from 'vue'
-import type { Unit, Quantity, Dimension } from '@/types/quantities'
-import { units as allUnits } from '@/data/units';
+// Imports
+import { ref } from 'vue'
+import type { Unit, DimensionString } from '@/types/quantities'
+import UnitsSelect from './UnitsSelect.vue';
 
+// --------- ACTUAL CODE ---------
 interface Props {
-    inputLabel: string,
+    dimensionName: DimensionString
+    inputId?: string
+    inputLabel?: string,
+    iconComponent?: object
     instructions?: string,
-    dimension: Dimension
-    inputId: string
 }
 const props = defineProps<Props>()
-const units = ref<Unit[]>([]);
-const quantity = ref<Quantity>({ value: 0, unit: undefined })
-
-onBeforeMount(() => {
-    units.value = allUnits.filter(unit => unit.dimension === props.dimension)
-    if (props.dimension.baseUnit === undefined) {
-       throw new Error("No base unit defined for dimension " + props.dimension.name);
-    }
-    quantity.value = { value: 0, unit: props.dimension.baseUnit }
+const quantity = defineModel<number>({
+    required: true,
+    // Unit Converter
+    set: (quantityWithUnit) => toBaseUnit(quantityWithUnit, unit.value), // Como se setea en el Parent
+    get: (quantityWithBaseUnit) => fromBaseUnit(quantityWithBaseUnit, unit.value), // Como lo obtengo en el Child
 })
+const unit = ref<Unit | undefined>()
+const toBaseUnit = (quantity: number, unit?: Unit): number => {
+    return unit ? quantity * unit.conversionFactorToBase : 0
+}
+const fromBaseUnit = (quantity: number, unit?: Unit): number => {
+    return unit ? quantity / unit.conversionFactorToBase : 0
+}
 
 </script>
 
 <template>
     <div>
-        <label :for="inputId" class="mb-3 flex gap-2 items-center"><i class="inline">
+        <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center"><i class="inline">
                 <FeInfo class="inline" />
             </i>
             {{ inputLabel }}</label>
 
         <InputGroup class="mb-5">
             <InputGroupAddon>
-                <MaterialSymbolsWidth class="text-2xl" />
+                <component v-if="iconComponent" :is="iconComponent" class="text-2xl"/>
             </InputGroupAddon>
-            <InputNumber v-model="quantity.value" :inputId="inputId" :useGrouping="false" :minFractionDigits="0"
+            <InputNumber v-model="quantity" :inputId="inputId" :useGrouping="false" :minFractionDigits="0"
                 :maxFractionDigits="5" locale="es-ES" style="width: 100%" />
-            <Select v-model="quantity.unit" :options="units" optionLabel="symbol" placeholder="ux" class="grow-0 w-auto"
-                style="width: unset" />
+            <UnitsSelect v-model="unit" :dimensionName="dimensionName" />
         </InputGroup>
     </div>
 </template>
