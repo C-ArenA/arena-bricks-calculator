@@ -47,8 +47,8 @@ const fromBaseUnit = (quantity: number, unit?: Unit): number => {
     </Transition>
 
     <InputGroup>
-      <InputGroupAddon>
-        <component v-if="iconComponent" :is="iconComponent" class="text-2xl" />
+      <InputGroupAddon v-if="iconComponent">
+        <component :is="iconComponent" class="text-2xl" />
       </InputGroupAddon>
       <InputNumber v-model="quantity" :inputId="inputId" :useGrouping="false" :minFractionDigits="0"
         :maxFractionDigits="5" locale="es-ES" style="width: 100%" />
