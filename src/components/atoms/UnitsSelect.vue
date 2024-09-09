@@ -13,17 +13,11 @@ const selectedUnit = defineModel<Unit | undefined>()
 const filteredUnits = ref<Unit[]>([])
 
 watchEffect(() => {
-  console.log('Miro props')
   filteredUnits.value = units.filter((unit) => unit.dimensionName === props.dimensionName)
   selectedUnit.value = dimensions.find((d) => d.name === props.dimensionName)?.baseUnit
 })
 </script>
 
 <template>
-  <Select
-    v-model="selectedUnit"
-    :options="filteredUnits"
-    optionLabel="symbol"
-    placeholder="u"
-  />
+  <Select v-model="selectedUnit" :options="filteredUnits" optionLabel="symbol" placeholder="u" />
 </template>

@@ -18,7 +18,7 @@ interface Props {
   iconComponent?: object
   instructions?: string
 }
-const props = defineProps<Props>()
+defineProps<Props>()
 const quantity = defineModel<number>({
   required: true,
   // Unit Converter
@@ -37,11 +37,12 @@ const fromBaseUnit = (quantity: number, unit?: Unit): number => {
 
 <template>
   <div class="my-3">
-    <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center"><Button v-if="instructions"
-        class="inline" @click="showInstructions = !showInstructions">
+    <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center"
+      ><Button v-if="instructions" class="inline" @click="showInstructions = !showInstructions">
         <FeInfo class="inline" />
       </Button>
-      {{ inputLabel }}</label>
+      {{ inputLabel }}</label
+    >
     <Transition>
       <p v-if="showInstructions" class="text-sm text-muted-color mb-2">{{ instructions }}</p>
     </Transition>
@@ -50,9 +51,21 @@ const fromBaseUnit = (quantity: number, unit?: Unit): number => {
       <InputGroupAddon v-if="iconComponent">
         <component :is="iconComponent" class="text-2xl" />
       </InputGroupAddon>
-      <InputNumber v-model="quantity" :inputId="inputId" :useGrouping="false" :minFractionDigits="0"
-        :maxFractionDigits="5" locale="es-ES" style="width: 100%" />
-      <UnitsSelect v-model="unit" :dimensionName="dimensionName" class="grow-0 w-auto" style="width: unset" />
+      <InputNumber
+        v-model="quantity"
+        :inputId="inputId"
+        :useGrouping="false"
+        :minFractionDigits="0"
+        :maxFractionDigits="5"
+        locale="es-ES"
+        style="width: 100%"
+      />
+      <UnitsSelect
+        v-model="unit"
+        :dimensionName="dimensionName"
+        class="grow-0 w-auto"
+        style="width: unset"
+      />
     </InputGroup>
   </div>
 </template>
@@ -61,7 +74,10 @@ const fromBaseUnit = (quantity: number, unit?: Unit): number => {
 /* we will explain what these classes do next! */
 .v-enter-active,
 .v-leave-active {
-  transition: transform 0.2s ease, opacity 0.2s ease, display 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    display 0.2s ease;
 }
 
 .v-enter-from,

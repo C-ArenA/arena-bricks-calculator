@@ -4,9 +4,7 @@ import StepItem from 'primevue/stepitem'
 import StepPanel from 'primevue/steppanel'
 import Step from 'primevue/step'
 import Button from 'primevue/button'
-import { ref } from 'vue'
 import WallForm from '@/components/organisms/WallForm.vue'
-
 </script>
 
 <template>
