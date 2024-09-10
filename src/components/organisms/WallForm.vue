@@ -5,6 +5,7 @@ import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import CarbonArea from '~icons/carbon/area'
 import UilWall from '~icons/uil/wall'
 import SelectButton from 'primevue/selectbutton'
+import Button from 'primevue/button'
 import Panel, { type PanelToggleEvent } from 'primevue/panel'
 import QuantityInput from '@/components/molecules/QuantityInput.vue'
 import type { Wall } from '@/types/walls'
@@ -13,6 +14,7 @@ import { ref, watchEffect } from 'vue'
 
 // --------- BINDINGS ---------
 defineProps<{ wallId: string }>()
+defineEmits(['deleteWall'])
 const wall = defineModel<Wall>({
   default: () => ({
     width: 0,
@@ -54,7 +56,7 @@ watchEffect(updateDimensions)
 </script>
 
 <template>
-  <Panel header="Muro" toggleable @toggle="setCollapsedValue">
+  <Panel header="Muro" toggleable @toggle="setCollapsedValue" class="my-5">
     <template #header>
       <div class="flex items-center gap-4">
         <PhWallFill class="text-2xl" />
@@ -65,6 +67,14 @@ watchEffect(updateDimensions)
           </span>
         </h4>
       </div>
+    </template>
+    <template #icons>
+      <Button
+        icon="pi pi-trash"
+        severity="danger"
+        rounded
+        text
+        @click="$emit('deleteWall', wallId)" />
     </template>
     <div class="flex flex-col items-center sm:items-end mt-2 mb-6 sm:mb-0 sm:mt-0">
       <SelectButton
