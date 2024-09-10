@@ -7,6 +7,6 @@ export type Wall = {
   width: number
   height: number
   area: number
-  mortarJointWidth?: number
+  mortarJointWidth: number
   measurementOption: MeasurementOption
 }
