@@ -13,10 +13,12 @@ import type { Wall } from '@/types/walls'
 import { defaultMortar, defaultWall } from '@/defaults'
 import { calculateBricksNeeded } from '@/utils/calculator'
 
-const walls = ref<Wall[]>([{...defaultWall}])
-const mortar = ref<Mortar>({...defaultMortar})
+const walls = ref<Wall[]>([{ ...defaultWall }])
+const mortar = ref<Mortar>({ ...defaultMortar })
 const selectedBrick = ref<Brick>(bricks[0])
-const totalBricksNeeded = computed(() => calculateBricksNeeded(walls.value, selectedBrick.value, mortar.value))
+const totalBricksNeeded = computed(() =>
+  calculateBricksNeeded(walls.value, selectedBrick.value, mortar.value),
+)
 </script>
 
 <template>
@@ -40,11 +42,13 @@ const totalBricksNeeded = computed(() => calculateBricksNeeded(walls.value, sele
         <StepPanel v-slot="{ activateCallback }">
           <div class="grid grid-cols-3 gap-4">
             <div v-for="(brick, index) in bricks" :key="index" class="flex gap-2">
-              <label :for="'lad' + index.toString()" :class="{ outline: selectedBrick.name === brick.name }">
-                <Card class="max-w-sm min-w-24">
-                  <template #header>
-                    <img alt="user header" src="@/assets/img/lad.png" />
-                  </template>
+              <label :for="'lad' + index.toString()">
+                <Card
+                  class="max-w-sm min-w-24 overflow-hidden hover:bg-emphasis"
+                  :class="{
+                    'border-primary border-2 !bg-highlight': selectedBrick.name === brick.name,
+                  }">
+                  <template #header></template>
                   <template #title>{{ brick.name }}</template>
                   <template #subtitle>{{ brick.description }}</template>
                   <template #content>
