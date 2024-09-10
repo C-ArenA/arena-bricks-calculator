@@ -5,55 +5,18 @@ import StepPanel from 'primevue/steppanel'
 import Step from 'primevue/step'
 import Button from 'primevue/button'
 import Card from 'primevue/card'
-import WallForm from '@/components/organisms/WallForm.vue'
-import { MeasurementOption, type Wall } from '@/types/walls'
 import { computed, ref } from 'vue'
-type Brick = {
-  name: string
-  description: string
-  width: number
-  height: number
-  length: number
-}
-const walls = ref<Wall[]>([])
-const addWall = () =>
-  walls.value.push({
-    width: 0,
-    height: 0,
-    area: 0,
-    mortarJointWidth: 0.015,
-    measurementOption: MeasurementOption.Dimensions,
-  })
-const bricks = ref<Brick[]>([
-  {
-    name: 'Ladrillo A',
-    description: 'El mejor ladrillo A',
-    width: 0.095,
-    height: 0.15,
-    length: 0.2,
-  },
-  {
-    name: 'Ladrillo B',
-    description: 'El mejor ladrillo B',
-    width: 0.105,
-    height: 0.14,
-    length: 0.19,
-  },
-  {
-    name: 'Ladrillo C',
-    description: 'El mejor ladrillo C',
-    width: 0.85,
-    height: 0.13,
-    length: 0.195,
-  },
-])
-const selectedBrick = ref<Brick>(bricks.value[0])
-const totalArea = computed(() => walls.value.reduce((acc, wall) => acc + wall.area, 0))
-const brickAndMortarArea = computed(() => {
-  const mortarWidth = walls.value.find(()=>true)?.mortarJointWidth??0
-  return (mortarWidth + selectedBrick.value.length) * (selectedBrick.value.height + mortarWidth) 
-})
-const ladnumber = computed(() => totalArea.value / brickAndMortarArea.value)
+import type { Brick, Mortar } from '@/types/materials'
+import { bricks } from '@/data/materials'
+import WallsCollector from '@/components/organisms/WallsCollector.vue'
+import type { Wall } from '@/types/walls'
+import { defaultMortar, defaultWall } from '@/defaults'
+import { calculateBricksNeeded } from '@/utils/calculator'
+
+const walls = ref<Wall[]>([{...defaultWall}])
+const mortar = ref<Mortar>({...defaultMortar})
+const selectedBrick = ref<Brick>(bricks[0])
+const totalBricksNeeded = computed(() => calculateBricksNeeded(walls.value, selectedBrick.value, mortar.value))
 </script>
 
 <template>
@@ -66,20 +29,7 @@ const ladnumber = computed(() => totalArea.value / brickAndMortarArea.value)
       <StepItem value="1">
         <Step>Define las dimensiones de tu muro</Step>
         <StepPanel v-slot="{ activateCallback }">
-          <WallForm
-            v-for="(wall, index) in walls"
-            :key="index"
-            :wallId="(index + 1).toString()"
-            v-model="walls[index]"
-            @delete-wall="() => walls.splice(index, 1)" />
-          <div class="flex justify-center mt-6">
-            <Button
-              icon="pi pi-plus"
-              severity="secondary"
-              iconPos="bottom"
-              rounded
-              @click="addWall" />
-          </div>
+          <WallsCollector v-model="walls" />
           <div class="py-6 text-center">
             <Button label="Next" @click="activateCallback('2')" />
           </div>
@@ -90,7 +40,7 @@ const ladnumber = computed(() => totalArea.value / brickAndMortarArea.value)
         <StepPanel v-slot="{ activateCallback }">
           <div class="grid grid-cols-3 gap-4">
             <div v-for="(brick, index) in bricks" :key="index" class="flex gap-2">
-              <label :for="'lad' + index.toString()" :class="{ outline: selectedBrick === brick }">
+              <label :for="'lad' + index.toString()" :class="{ outline: selectedBrick.name === brick.name }">
                 <Card class="max-w-sm min-w-24">
                   <template #header>
                     <img alt="user header" src="@/assets/img/lad.png" />
@@ -119,7 +69,7 @@ const ladnumber = computed(() => totalArea.value / brickAndMortarArea.value)
       <StepItem value="3">
         <Step>Mira la cantidad Total</Step>
         <StepPanel v-slot="{ activateCallback }">
-          <p>{{ ladnumber.toFixed(2) }}</p>
+          <p>{{ totalBricksNeeded.toFixed(2) }}</p>
           <div class="py-6">
             <Button label="Back" severity="secondary" @click="activateCallback('2')" />
           </div>

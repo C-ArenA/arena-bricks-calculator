@@ -1,3 +1,4 @@
+import type { Mortar } from "./types/materials";
 import { MeasurementOption, type Wall } from "./types/walls";
 
 export const defaultWall: Wall = {
@@ -6,4 +7,7 @@ export const defaultWall: Wall = {
     area: 0,
     mortarJointWidth: 0.015,
     measurementOption: MeasurementOption.Dimensions,
+}
+export const defaultMortar: Mortar = {
+    width: 0.015,
 }
