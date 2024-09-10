@@ -13,12 +13,14 @@ import { ref, watchEffect } from 'vue'
 
 // --------- BINDINGS ---------
 defineProps<{ wallId: string }>()
-const wall = ref<Wall>({
-  width: 0,
-  height: 0,
-  area: 0,
-  mortarJointWidth: 0,
-  measurementOption: MeasurementOption.Dimensions,
+const wall = defineModel<Wall>({
+  default: () => ({
+    width: 0,
+    height: 0,
+    area: 0,
+    mortarJointWidth: 0,
+    measurementOption: MeasurementOption.Dimensions,
+  }),
 })
 
 // --------- STATE ---------
