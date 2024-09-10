@@ -24,27 +24,32 @@ const quantity = defineModel<number | undefined>({
   required: true,
   // Unit Converter
   set: (quantityWithUnit) => toBaseUnit(quantityWithUnit, unit.value), // Como se setea en el Parent
-  get: (quantityWithBaseUnit) => fromBaseUnit(quantityWithBaseUnit, unit.value) // Como lo obtengo en el Child
+  get: (quantityWithBaseUnit) => fromBaseUnit(quantityWithBaseUnit, unit.value), // Como lo obtengo en el Child
 })
 const unit = ref<Unit | undefined>()
 const showInstructions = ref(false)
 const toBaseUnit = (quantity?: number, unit?: Unit): number | undefined => {
-  if (quantity === undefined || unit === undefined) { return undefined }
+  if (quantity === undefined || unit === undefined) {
+    return undefined
+  }
   return quantity * unit.conversionFactorToBase
 }
-const fromBaseUnit = (quantity?: number, unit?: Unit): number|undefined => {
-  if (quantity === undefined || unit === undefined) { return undefined }
-  return quantity / unit.conversionFactorToBase 
+const fromBaseUnit = (quantity?: number, unit?: Unit): number | undefined => {
+  if (quantity === undefined || unit === undefined) {
+    return undefined
+  }
+  return quantity / unit.conversionFactorToBase
 }
 </script>
 
 <template>
   <div class="my-3">
-    <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center"><Button v-if="instructions"
-        class="inline" @click="showInstructions = !showInstructions">
+    <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center">
+      <Button v-if="instructions" class="inline" @click="showInstructions = !showInstructions">
         <FeInfo class="inline" />
       </Button>
-      {{ inputLabel }}</label>
+      {{ inputLabel }}
+    </label>
     <Transition>
       <p v-if="showInstructions" class="text-sm text-muted-color mb-2">{{ instructions }}</p>
     </Transition>
@@ -53,9 +58,20 @@ const fromBaseUnit = (quantity?: number, unit?: Unit): number|undefined => {
       <InputGroupAddon v-if="iconComponent">
         <component :is="iconComponent" class="text-2xl" />
       </InputGroupAddon>
-      <InputNumber v-model="quantity" :min="0" :inputId="inputId" :useGrouping="false" :minFractionDigits="0"
-        :maxFractionDigits="5" locale="es-ES" style="width: 100%" />
-      <UnitsSelect v-model="unit" :dimensionName="dimensionName" class="grow-0 w-auto" style="width: unset" />
+      <InputNumber
+        v-model="quantity"
+        :min="0"
+        :inputId="inputId"
+        :useGrouping="false"
+        :minFractionDigits="0"
+        :maxFractionDigits="5"
+        locale="es-ES"
+        style="width: 100%" />
+      <UnitsSelect
+        v-model="unit"
+        :dimensionName="dimensionName"
+        class="grow-0 w-auto"
+        style="width: unset" />
     </InputGroup>
   </div>
 </template>

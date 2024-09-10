@@ -9,9 +9,9 @@ import PhWallFill from '~icons/ph/wall-fill'
     <PhWallFill class="m-auto text-6xl mb-5" />
     <h1 class="mb-10 text-4xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl">
       Cuántos Ladrillos
-      <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
-        >ArenA</span
-      >
+      <span class="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+        ArenA
+      </span>
       necesitarás para tu muro?
     </h1>
     <p class="mb-12 text-lg font-normal lg:text-xl sm:px-16 xl:px-48">

@@ -10,19 +10,19 @@ const menuItems = ref<MenuItem[]>([
   {
     label: 'Home',
     icon: 'pi pi-home',
-    command: () => router.push('/')
+    command: () => router.push('/'),
   },
   {
     label: 'Calculadora',
     icon: 'pi pi-calculator',
-    command: () => router.push('/calculator')
+    command: () => router.push('/calculator'),
   },
   {
     label: 'Storybook',
     icon: 'pi pi-book',
     url: 'http://localhost:6006/',
-    target: '_blank'
-  }
+    target: '_blank',
+  },
 ])
 </script>
 

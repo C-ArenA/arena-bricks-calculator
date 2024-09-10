@@ -9,7 +9,7 @@ import RiTimeFill from '~icons/ri/time-fill'
 import { ref } from 'vue'
 
 const meta: Meta<typeof QuantityInput> = {
-  component: QuantityInput
+  component: QuantityInput,
 }
 export default meta
 type Story = StoryObj<typeof QuantityInput>
@@ -20,56 +20,56 @@ const render = (args: any) => ({
     const q = ref(0)
     return { args, q }
   },
-  template: `<QuantityInput v-bind="args" v-model="q" />`
+  template: `<QuantityInput v-bind="args" v-model="q" />`,
 })
 
 export const Default: Story = {
-  args: {}
+  args: {},
 }
 export const WithIcon: Story = {
   args: {
-    iconComponent: MdiSpray
-  }
+    iconComponent: MdiSpray,
+  },
 }
 export const WithLabel: Story = {
   args: {
-    inputLabel: 'Ingresar Cantidad'
-  }
+    inputLabel: 'Ingresar Cantidad',
+  },
 }
 export const WithLabelAndInstructions: Story = {
   args: {
     inputLabel: 'Ingresar Cantidad',
-    instructions: 'Debe ingresar una cantidad'
-  }
+    instructions: 'Debe ingresar una cantidad',
+  },
 }
 export const Length: Story = {
   render: render,
   args: {
     dimensionName: 'length',
-    iconComponent: PhRuler
-  }
+    iconComponent: PhRuler,
+  },
 }
 export const Area: Story = {
   args: {
     dimensionName: 'area',
-    iconComponent: PhWallLight
-  }
+    iconComponent: PhWallLight,
+  },
 }
 export const Volume: Story = {
   args: {
     dimensionName: 'volume',
-    iconComponent: PhCubeFill
-  }
+    iconComponent: PhCubeFill,
+  },
 }
 export const Mass: Story = {
   args: {
     dimensionName: 'mass',
-    iconComponent: IconParkOutlineWeight
-  }
+    iconComponent: IconParkOutlineWeight,
+  },
 }
 export const Time: Story = {
   args: {
     dimensionName: 'time',
-    iconComponent: RiTimeFill
-  }
+    iconComponent: RiTimeFill,
+  },
 }

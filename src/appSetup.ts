@@ -13,8 +13,8 @@ export default (app: App) => {
     theme: {
       preset: Aura,
       options: {
-        darkModeSelector: '.arena-bricks-calculator-dark-mode'
-      }
-    }
+        darkModeSelector: '.arena-bricks-calculator-dark-mode',
+      },
+    },
   })
 }

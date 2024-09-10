@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import UnitsSelect from './UnitsSelect.vue'
 
 const meta: Meta<typeof UnitsSelect> = {
-  component: UnitsSelect
+  component: UnitsSelect,
 }
 export default meta
 
@@ -10,26 +10,26 @@ type Story = StoryObj<typeof UnitsSelect>
 
 export const Length: Story = {
   args: {
-    dimensionName: 'length'
-  }
+    dimensionName: 'length',
+  },
 }
 export const Area: Story = {
   args: {
-    dimensionName: 'area'
-  }
+    dimensionName: 'area',
+  },
 }
 export const Volume: Story = {
   args: {
-    dimensionName: 'volume'
-  }
+    dimensionName: 'volume',
+  },
 }
 export const Mass: Story = {
   args: {
-    dimensionName: 'mass'
-  }
+    dimensionName: 'mass',
+  },
 }
 export const Time: Story = {
   args: {
-    dimensionName: 'time'
-  }
+    dimensionName: 'time',
+  },
 }
