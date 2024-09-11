@@ -3,33 +3,23 @@ import PhWallFill from '~icons/ph/wall-fill'
 import MaterialSymbolsWidth from '~icons/material-symbols/width'
 import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import CarbonArea from '~icons/carbon/area'
-import UilWall from '~icons/uil/wall'
-import SelectButton from 'primevue/selectbutton'
+import ToggleSwitch from 'primevue/toggleswitch'
 import Button from 'primevue/button'
 import Panel, { type PanelToggleEvent } from 'primevue/panel'
 import QuantityInput from '@/components/molecules/QuantityInput.vue'
+import PhRulerBold from '~icons/ph/ruler-bold'
+import MingcuteTextAreaFill from '~icons/mingcute/text-area-fill'
 import type { Wall } from '@/types/walls'
-import { MeasurementOption } from '@/types/walls'
 import { ref, watchEffect } from 'vue'
 
 // --------- BINDINGS ---------
 defineProps<{ wallId: string }>()
 defineEmits(['deleteWall'])
 const wall = defineModel<Wall>({
-  default: () => ({
-    width: 0,
-    height: 0,
-    area: 0,
-    mortarJointWidth: 0,
-    measurementOption: MeasurementOption.Dimensions,
-  }),
+  required: true,
 })
 
 // --------- STATE ---------
-const measurementOptions: MeasurementOption[] = [
-  MeasurementOption.Dimensions,
-  MeasurementOption.Area,
-]
 const collapsed = ref(false)
 
 // --------- ACTIONS ---------
@@ -37,14 +27,14 @@ const setCollapsedValue = (panelToggleEvent: PanelToggleEvent) => {
   collapsed.value = panelToggleEvent.value
 }
 const updateArea = () => {
-  if (wall.value.measurementOption === MeasurementOption.Dimensions) {
-    wall.value.area = wall.value.width * wall.value.height
+  if (!wall.value.justAreaMode) {
+    wall.value.area = wall.value.length * wall.value.height
   }
 }
 const updateDimensions = () => {
-  if (wall.value.measurementOption === MeasurementOption.Area) {
-    if (wall.value.area != wall.value.width * wall.value.height) {
-      wall.value.width = wall.value.area
+  if (wall.value.justAreaMode) {
+    if (wall.value.area != wall.value.length * wall.value.height) {
+      wall.value.length = wall.value.area
       wall.value.height = 1
     }
   }
@@ -69,62 +59,44 @@ watchEffect(updateDimensions)
       </div>
     </template>
     <template #icons>
-      <Button
-        icon="pi pi-trash"
-        severity="danger"
-        rounded
-        text
-        @click="$emit('deleteWall', wallId)" />
+      <div class="inline-flex gap-2 justify-center items-center">
+        <label class="text-muted-color">
+          <PhRulerBold v-if="!wall.justAreaMode" />
+          <MingcuteTextAreaFill v-if="wall.justAreaMode" />
+        </label>
+        <ToggleSwitch v-if="!collapsed" v-model="wall.justAreaMode" />
+        <Button
+          icon="pi pi-trash"
+          severity="danger"
+          rounded
+          text
+          @click="$emit('deleteWall', wallId)" />
+      </div>
     </template>
-    <div class="flex flex-col items-center sm:items-end mt-2 mb-6 sm:mb-0 sm:mt-0">
-      <SelectButton
-        v-model="wall.measurementOption"
-        :options="measurementOptions"
-        aria-labelledby="basic"
-        class="w-full sm:w-auto measurement-mode-select-button">
-        <template #option="slotProps">
-          {{ slotProps.option }}
-        </template>
-      </SelectButton>
-      <label class="text-xs text-muted-color">Modo de Ingreso de medidas</label>
-    </div>
     <QuantityInput
-      v-if="wall.measurementOption === MeasurementOption.Dimensions"
-      v-model="wall.width"
-      dimensionName="length"
-      inputLabel="Ancho del Muro"
-      :iconComponent="MaterialSymbolsWidth"
-      instructions="Ingrese el ancho del muro en las unidades que desee. Por ejemplo: 5 m, 2 ft, 1.5 y 0.5" />
-    <QuantityInput
-      v-if="wall.measurementOption === MeasurementOption.Dimensions"
-      v-model="wall.height"
-      dimensionName="length"
-      inputLabel="Alto del Muro"
-      :iconComponent="MaterialSymbolsHeight" />
-    <QuantityInput
-      v-if="wall.measurementOption === MeasurementOption.Area"
+      v-if="wall.justAreaMode"
       v-model="wall.area"
       dimensionName="area"
       inputLabel="Área del Muro"
       :iconComponent="CarbonArea" />
-    <QuantityInput
-      v-model="wall.mortarJointWidth"
-      dimensionName="length"
-      inputLabel="Espesor de la junta de mortero"
-      :iconComponent="UilWall" />
-    <p
-      class="text-sm text-muted-color text-right mt-6"
-      v-if="wall.measurementOption === MeasurementOption.Dimensions">
-      Área del Muro:
-      <span class="text-lg font-semibold">{{ wall.area }} m2</span>
-    </p>
+    <template v-else>
+      <QuantityInput
+        v-if="true"
+        v-model="wall.length"
+        dimensionName="length"
+        inputLabel="Largo del Muro"
+        :iconComponent="MaterialSymbolsWidth"
+        instructions="Ingrese el largo horizontal del muro en las unidades que desee. Por ejemplo: 5 m, 2 ft, 1.5 y 0.5" />
+      <QuantityInput
+        v-if="true"
+        v-model="wall.height"
+        dimensionName="length"
+        inputLabel="Alto del Muro"
+        :iconComponent="MaterialSymbolsHeight" />
+      <p class="text-sm text-muted-color text-right mt-6" v-if="true">
+        Área del Muro:
+        <span class="text-lg font-semibold">{{ wall.area }} m2</span>
+      </p>
+    </template>
   </Panel>
 </template>
-
-<style scoped>
-@media (max-width: 640px) {
-  .measurement-mode-select-button :deep(.p-togglebutton) {
-    width: 100%;
-  }
-}
-</style>

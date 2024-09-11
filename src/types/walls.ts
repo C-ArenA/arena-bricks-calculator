@@ -1,12 +1,6 @@
-export const enum MeasurementOption {
-  Area = 'Área',
-  Dimensions = 'Dimensiones',
-}
-
 export type Wall = {
-  width: number
+  length: number
   height: number
   area: number
-  mortarJointWidth: number
-  measurementOption: MeasurementOption
+  justAreaMode: boolean
 }

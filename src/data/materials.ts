@@ -12,7 +12,7 @@ export const bricks: Brick[] = [
   {
     name: 'Ladrillo Estándar',
     description: 'Ladrillo cerámico de 6 huecos, rayado, no portante, para uso de relleno',
-    width: 0.10,
+    width: 0.1,
     height: 0.15,
     length: 0.24,
   },
