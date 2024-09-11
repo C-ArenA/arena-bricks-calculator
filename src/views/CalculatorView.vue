@@ -50,9 +50,12 @@ const totalBricksNeeded = computed(() =>
                   }">
                   <template #header></template>
                   <template #title>{{ brick.name }}</template>
-                  <template #subtitle>{{ brick.description }}</template>
+                  <template #subtitle>
+                    {{ brick.length * 1000 }}mm x {{ brick.height * 1000 }}mm x
+                    {{ brick.width * 1000 }}mm
+                  </template>
                   <template #content>
-                    <p class="m-0">{{ brick.width }} x {{ brick.height }} x {{ brick.length }}</p>
+                    <p class="m-0">{{ brick.description }}</p>
                   </template>
                 </Card>
               </label>
@@ -71,9 +74,12 @@ const totalBricksNeeded = computed(() =>
         </StepPanel>
       </StepItem>
       <StepItem value="3">
-        <Step>Mira la cantidad Total</Step>
+        <Step>Resultado</Step>
         <StepPanel v-slot="{ activateCallback }">
-          <p>{{ totalBricksNeeded.toFixed(2) }}</p>
+          <p>
+            Cantidad de Ladrillos Necesarios:
+            <span class="text-3xl font-medium text-primary">{{ totalBricksNeeded }}</span>
+          </p>
           <div class="py-6">
             <Button label="Back" severity="secondary" @click="activateCallback('2')" />
           </div>
