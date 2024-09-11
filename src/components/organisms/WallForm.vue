@@ -3,9 +3,9 @@ import PhWallFill from '~icons/ph/wall-fill'
 import MaterialSymbolsWidth from '~icons/material-symbols/width'
 import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import CarbonArea from '~icons/carbon/area'
-import ToggleSwitch from 'primevue/toggleswitch'
 import Button from 'primevue/button'
-import Panel, { type PanelToggleEvent } from 'primevue/panel'
+import ToggleButton from 'primevue/togglebutton'
+import Panel from 'primevue/panel'
 import QuantityInput from '@/components/molecules/QuantityInput.vue'
 import PhRulerBold from '~icons/ph/ruler-bold'
 import MingcuteTextAreaFill from '~icons/mingcute/text-area-fill'
@@ -23,9 +23,6 @@ const wall = defineModel<Wall>({
 const collapsed = ref(false)
 
 // --------- ACTIONS ---------
-const setCollapsedValue = (panelToggleEvent: PanelToggleEvent) => {
-  collapsed.value = panelToggleEvent.value
-}
 const updateArea = () => {
   if (!wall.value.justAreaMode) {
     wall.value.area = wall.value.length * wall.value.height
@@ -46,7 +43,7 @@ watchEffect(updateDimensions)
 </script>
 
 <template>
-  <Panel header="Muro" toggleable @toggle="setCollapsedValue" class="my-5">
+  <Panel v-model:collapsed="collapsed" header="Muro" toggleable class="my-5">
     <template #header>
       <div class="flex items-center gap-4">
         <PhWallFill class="text-2xl" />
@@ -60,11 +57,10 @@ watchEffect(updateDimensions)
     </template>
     <template #icons>
       <div class="inline-flex gap-2 justify-center items-center">
-        <label class="text-muted-color">
+        <ToggleButton v-if="!collapsed" v-model="wall.justAreaMode" unstyled="true">
           <PhRulerBold v-if="!wall.justAreaMode" />
           <MingcuteTextAreaFill v-if="wall.justAreaMode" />
-        </label>
-        <ToggleSwitch v-if="!collapsed" v-model="wall.justAreaMode" />
+        </ToggleButton>
         <Button
           icon="pi pi-trash"
           severity="danger"
