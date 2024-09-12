@@ -12,6 +12,7 @@ import type { Wall } from '@/types/walls'
 import { defaultMortar, defaultWall } from '@/defaults'
 import { calculateBricksNeeded } from '@/utils/calculator'
 import BrickSelect from '@/components/organisms/BrickSelect.vue'
+import MortarForm from '@/components/organisms/MortarForm.vue'
 
 const walls = ref<Wall[]>([{ ...defaultWall }])
 const mortar = ref<Mortar>({ ...defaultMortar })
@@ -48,6 +49,16 @@ const totalBricksNeeded = computed(() =>
         </StepPanel>
       </StepItem>
       <StepItem value="3">
+        <Step>Planea tu Mortero</Step>
+        <StepPanel v-slot="{ activateCallback }">
+          <MortarForm v-model="mortar"/>
+          <div class="flex py-6 gap-2">
+            <Button label="Back" severity="secondary" @click="activateCallback('2')" />
+            <Button label="Next" @click="activateCallback('4')" />
+          </div>
+        </StepPanel>
+      </StepItem>
+      <StepItem value="4">
         <Step>Resultado</Step>
         <StepPanel v-slot="{ activateCallback }">
           <p>
@@ -55,7 +66,7 @@ const totalBricksNeeded = computed(() =>
             <span class="text-3xl font-medium text-primary">{{ totalBricksNeeded }}</span>
           </p>
           <div class="py-6">
-            <Button label="Back" severity="secondary" @click="activateCallback('2')" />
+            <Button label="Back" severity="secondary" @click="activateCallback('3')" />
           </div>
         </StepPanel>
       </StepItem>

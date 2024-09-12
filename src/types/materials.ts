@@ -9,4 +9,5 @@ export type Brick = {
 
 export type Mortar = {
   width: number
+  isDetailed: boolean
 }
