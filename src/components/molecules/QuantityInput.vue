@@ -10,24 +10,29 @@ import { getCurrentInstance, ref } from 'vue'
 import type { Unit, DimensionString } from '@/types/quantities'
 import UnitsSelect from '../atoms/UnitsSelect.vue'
 
-// --------- ACTUAL CODE ---------
+// --------- BINDINGS ---------
 interface Props {
   dimensionName: DimensionString
+  defaultUnit?: Unit
   inputLabel?: string
   iconComponent?: object
   instructions?: string
 }
-defineProps<Props>()
-const instance = getCurrentInstance()
-const inputId = ref('input' + instance?.uid?.toString())
+const props = defineProps<Props>()
 const quantity = defineModel<number | undefined>({
   required: true,
   // Unit Converter
   set: (quantityWithUnit) => toBaseUnit(quantityWithUnit, unit.value), // Como se setea en el Parent
   get: (quantityWithBaseUnit) => fromBaseUnit(quantityWithBaseUnit, unit.value), // Como lo obtengo en el Child
 })
-const unit = ref<Unit | undefined>()
+
+// --------- STATE ---------
+const unit = ref<Unit | undefined>(props.defaultUnit)
+const instance = getCurrentInstance()
+const inputId = ref('input' + instance?.uid?.toString())
 const showInstructions = ref(false)
+
+// --------- ACTIONS ---------
 const toBaseUnit = (quantity?: number, unit?: Unit): number | undefined => {
   if (quantity === undefined || unit === undefined) {
     return undefined

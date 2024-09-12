@@ -7,6 +7,7 @@ import PhCubeFill from '~icons/ph/cube-fill'
 import IconParkOutlineWeight from '~icons/icon-park-outline/weight'
 import RiTimeFill from '~icons/ri/time-fill'
 import { ref } from 'vue'
+import { units } from '@/data/units'
 
 const meta: Meta<typeof QuantityInput> = {
   component: QuantityInput,
@@ -47,6 +48,14 @@ export const Length: Story = {
   args: {
     dimensionName: 'length',
     iconComponent: PhRuler,
+  },
+}
+export const LengthInMilimeters: Story = {
+  render: render,
+  args: {
+    dimensionName: 'length',
+    iconComponent: PhRuler,
+    defaultUnit: units.find((u) => u.name === 'milímetro'),
   },
 }
 export const Area: Story = {
