@@ -3,8 +3,8 @@ import BrickSelect from './BrickSelect.vue'
 import { ref } from 'vue'
 import type { Brick } from '@/types/materials'
 
-const meta:Meta<typeof BrickSelect> = {
-  component: BrickSelect
+const meta: Meta<typeof BrickSelect> = {
+  component: BrickSelect,
 }
 export default meta
 type Story = StoryObj<typeof meta>
