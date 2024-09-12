@@ -14,7 +14,7 @@ const selectorId = ref('selector-' + instance?.uid?.toString())
 </script>
 
 <template>
-  <div class="flex flex-wrap gap-4 justify-center">
+  <div class="flex flex-wrap gap-4 justify-start">
     <div
       v-for="(option, index) in options"
       :key="index"
