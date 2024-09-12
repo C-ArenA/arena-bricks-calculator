@@ -10,4 +10,5 @@ export const defaultWall: Wall = {
 
 export const defaultMortar: Mortar = {
   width: 0.015,
+  isDetailed: false,
 }
