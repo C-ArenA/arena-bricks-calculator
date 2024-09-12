@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T">
 import Card from 'primevue/card';
-import { getCurrentInstance, ref } from 'vue';
+import { getCurrentInstance, ref, toRaw } from 'vue';
 
 defineProps<{
    options:T[]
@@ -8,9 +8,9 @@ defineProps<{
    subtitleKey?:keyof T
    descriptionKey?:keyof T
 }>()
+const selected = defineModel<T>()
 const instance = getCurrentInstance()
 const selectorId = ref('selector-' + instance?.uid?.toString())
-const selected = defineModel<T>()
 </script>
 
 <template>
@@ -20,7 +20,7 @@ const selected = defineModel<T>()
         <Card
           class="overflow-hidden hover:bg-emphasis"
           :class="{
-            'border-primary border-2 !bg-highlight': selected === option,
+            'border-primary border-2 !bg-highlight': toRaw(selected) == toRaw(option),
           }">
           <template #header></template>
           <template #title><slot name="title" :option="option">{{ titleKey?option[titleKey]:'' }}</slot></template>
