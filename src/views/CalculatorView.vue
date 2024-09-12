@@ -10,7 +10,7 @@ import { bricks } from '@/data/materials'
 import WallsCollector from '@/components/organisms/WallsCollector.vue'
 import type { Wall } from '@/types/walls'
 import { defaultMortar, defaultWall } from '@/defaults'
-import { calculateBricksNeeded } from '@/utils/calculator'
+import { calculateBricksNeeded, calculateTotalWallsArea } from '@/utils/calculator'
 import BrickSelect from '@/components/organisms/BrickSelect.vue'
 import MortarForm from '@/components/organisms/MortarForm.vue'
 
@@ -33,8 +33,8 @@ const totalBricksNeeded = computed(() =>
         <Step>Define las dimensiones de tu muro</Step>
         <StepPanel v-slot="{ activateCallback }">
           <WallsCollector v-model="walls" />
-          <div class="py-6 text-center">
-            <Button label="Next" @click="activateCallback('2')" />
+          <div class="py-6">
+            <Button label="Siguiente" @click="activateCallback('2')" />
           </div>
         </StepPanel>
       </StepItem>
@@ -43,30 +43,36 @@ const totalBricksNeeded = computed(() =>
         <StepPanel v-slot="{ activateCallback }">
           <BrickSelect v-model="brick" />
           <div class="flex py-6 gap-2">
-            <Button label="Back" severity="secondary" @click="activateCallback('1')" />
-            <Button label="Next" @click="activateCallback('3')" />
+            <Button label="Atrás" severity="secondary" @click="activateCallback('1')" />
+            <Button label="Siguiente" @click="activateCallback('3')" />
           </div>
         </StepPanel>
       </StepItem>
       <StepItem value="3">
         <Step>Planea tu Mortero</Step>
         <StepPanel v-slot="{ activateCallback }">
-          <MortarForm v-model="mortar"/>
+          <MortarForm v-model="mortar" />
           <div class="flex py-6 gap-2">
-            <Button label="Back" severity="secondary" @click="activateCallback('2')" />
-            <Button label="Next" @click="activateCallback('4')" />
+            <Button label="Atrás" severity="secondary" @click="activateCallback('2')" />
+            <Button label="Siguiente" @click="activateCallback('4')" />
           </div>
         </StepPanel>
       </StepItem>
       <StepItem value="4">
         <Step>Resultado</Step>
         <StepPanel v-slot="{ activateCallback }">
-          <p>
-            Cantidad de Ladrillos Necesarios:
+          <p class="text-center">
+            Cantidad de Ladrillos
+            <span class="font-bold">"{{ brick.name }}"</span>
+            necesarios para cubrir un área de
+            <span class="font-bold">{{ calculateTotalWallsArea(walls) }} m2</span>
+            con un grosor de mortero de
+            <span class="font-bold">{{ mortar.width * 1000 }} mm</span>
+            :
             <span class="text-3xl font-medium text-primary">{{ totalBricksNeeded }}</span>
           </p>
           <div class="py-6">
-            <Button label="Back" severity="secondary" @click="activateCallback('3')" />
+            <Button label="Atrás" severity="secondary" @click="activateCallback('3')" />
           </div>
         </StepPanel>
       </StepItem>
