@@ -22,6 +22,7 @@ const menuItems = ref<MenuItem[]>([
     icon: 'pi pi-book',
     url: 'http://localhost:6006/',
     target: '_blank',
+    visible: !import.meta.env.PROD,
   },
 ])
 </script>
