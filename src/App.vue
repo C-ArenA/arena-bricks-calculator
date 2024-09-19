@@ -28,7 +28,7 @@ const menuItems = ref<MenuItem[]>([
 </script>
 
 <template>
-  <header class="">
+  <header class="print:!hidden">
     <Menubar class="m-2" :model="menuItems">
       <template #start>
         <img src="@/assets/logos/imago_arena.png" alt="logo" class="max-h-6 mr-2" />
