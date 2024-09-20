@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import RiArrowRightLine from '~icons/ri/arrow-right-line'
-import PhWallFill from '~icons/ph/wall-fill'
 </script>
 
 <template>

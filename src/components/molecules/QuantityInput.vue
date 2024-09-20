@@ -1,7 +1,4 @@
 <script setup lang="ts">
-// Icons
-import FeInfo from '~icons/fe/info'
-// Imports
 import { getCurrentInstance, ref } from 'vue'
 import type { Unit, DimensionString } from '@/types/quantities'
 import UnitsSelect from '../atoms/UnitsSelect.vue'

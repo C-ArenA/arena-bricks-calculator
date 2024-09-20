@@ -6,6 +6,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import Icons from 'unplugin-icons/vite'
 import Components from 'unplugin-vue-components/vite'
 import { PrimeVueResolver } from '@primevue/auto-import-resolver'
+import IconsResolver from 'unplugin-icons/resolver'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -14,7 +15,7 @@ export default defineConfig({
       compiler: 'vue3'
     }),
     Components({
-      resolvers: [ PrimeVueResolver() ]
+      resolvers: [ PrimeVueResolver(), IconsResolver({prefix: false}) ]
     }),
     vueDevTools()
   ],

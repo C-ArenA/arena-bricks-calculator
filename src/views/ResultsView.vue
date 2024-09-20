@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { useCalculatorStore } from '@/stores/calculator'
-import TablerPaperBag from '~icons/tabler/paper-bag'
-import HumbleiconsBox from '~icons/humbleicons/box'
-import IcOutlineWaterDrop from '~icons/ic/outline-water-drop'
 import { ref } from 'vue'
 const calculatorStore = useCalculatorStore()
 const print = () => {

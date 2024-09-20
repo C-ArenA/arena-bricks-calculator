@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import PhWallFill from '~icons/ph/wall-fill'
 import MaterialSymbolsWidth from '~icons/material-symbols/width'
 import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import CarbonArea from '~icons/carbon/area'
 import QuantityInput from '@/components/molecules/QuantityInput.vue'
-import PhRulerBold from '~icons/ph/ruler-bold'
-import MingcuteTextAreaFill from '~icons/mingcute/text-area-fill'
 import type { Wall } from '@/types/walls'
 import { ref, watchEffect } from 'vue'
 
