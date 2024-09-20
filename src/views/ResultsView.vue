@@ -128,7 +128,7 @@ const quotation = ref(false)
       </p>
     </div>
 
-    <Dialog v-model:visible="quotation" header="Formulario de Cotización">
+    <Dialog v-model:visible="quotation" header="Formulario de Cotización" modal>
       <QuotationForm @sent-quotation="quotation = false" />
     </Dialog>
   </div>
