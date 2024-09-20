@@ -61,12 +61,16 @@ const quotation = ref(false)
         </ul>
       </template>
     </Card>
-    <Card class="max-w-xl mx-auto !shadow-2xl print:!shadow-none print:!border overflow-hidden mt-8">
+    <Card
+      class="max-w-xl mx-auto !shadow-2xl print:!shadow-none print:!border overflow-hidden mt-8">
       <template #content>
-        <p>Bolsas de cemento: {{  calculatorStore.cementNeededBags }}</p>
-        <p>Cantidad de Arena: {{  calculatorStore.sandNeededVolume.toFixed(4) }} [m3]</p>
-        <p>Cantidad de Agua: {{  calculatorStore.waterNeeded.toFixed(2) }} [L]</p>
-        <p>Para: {{  calculatorStore.mortarDryVolume }} [m3] de mortero seco resultante de {{  calculatorStore.mortarVolume }} [m3] de mortero necesario</p>
+        <p>Bolsas de cemento: {{ calculatorStore.cementNeededBags }}</p>
+        <p>Cantidad de Arena: {{ calculatorStore.sandNeededVolume.toFixed(4) }} [m3]</p>
+        <p>Cantidad de Agua: {{ calculatorStore.waterNeeded.toFixed(2) }} [L]</p>
+        <p>
+          Para: {{ calculatorStore.mortarDryVolume }} [m3] de mortero seco resultante de
+          {{ calculatorStore.mortarVolume }} [m3] de mortero necesario
+        </p>
       </template>
     </Card>
     <Button label="Solicitar Cotización" class="mt-4 print:!hidden" @click="quotation = true" />

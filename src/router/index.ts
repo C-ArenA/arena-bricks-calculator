@@ -22,13 +22,13 @@ const router = createRouter({
       name: 'results',
       beforeEnter: (to, from, next) => {
         if (from.name === 'calculator') {
-          next()}
-        else {
-          next({name: 'calculator'})
+          next()
+        } else {
+          next({ name: 'calculator' })
         }
       },
       component: () => import('../views/ResultsView.vue'),
-    }
+    },
   ],
 })
 

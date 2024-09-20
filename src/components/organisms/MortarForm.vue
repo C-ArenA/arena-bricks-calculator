@@ -36,7 +36,9 @@ const mortar = defineModel<Mortar>({
           :value="validCementSandRatio"
           :inputId="index.toString()"
           name="cement-sand-ratio" />
-        <label :for="index.toString()" class="px-2">{{ validCementSandRatio[0] }} : {{ validCementSandRatio[1] }}</label>
+        <label :for="index.toString()" class="px-2">
+          {{ validCementSandRatio[0] }} : {{ validCementSandRatio[1] }}
+        </label>
       </div>
     </div>
     <h3 class="mb-2">Tipo de cemento</h3>
