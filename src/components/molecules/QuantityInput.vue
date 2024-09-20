@@ -68,7 +68,7 @@ const fromBaseUnit = (quantity?: number, unit?: Unit): number | undefined => {
         :min="0"
         :inputId="inputId"
         :useGrouping="false"
-        :minFractionDigits="0"
+        :minFractionDigits="1"
         :maxFractionDigits="5"
         locale="es-ES"
         style="width: 100%" />
