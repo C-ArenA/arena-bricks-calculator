@@ -4,26 +4,32 @@ import Panel from 'primevue/panel'
 import QuantityInput from '../molecules/QuantityInput.vue'
 import ToggleSwitch from 'primevue/toggleswitch'
 import RadioButton from 'primevue/radiobutton'
+import Slider from 'primevue/slider'
 import UilWall from '~icons/uil/wall'
 import type { Mortar } from '@/types/materials'
 import { units } from '@/data/units'
 import { cements, validCementSandRatios } from '@/data/materials'
+import { ref, watchEffect } from 'vue'
 
 const mortar = defineModel<Mortar>({
   required: true,
 })
+
+const advancedMode = ref(false)
+const dryWetPercentage = ref(33)
+
+const toDryWetFactor = () => (mortar.value.dryWetFactor = 1 + dryWetPercentage.value / 100)
+watchEffect(() => (dryWetPercentage.value = (mortar.value.dryWetFactor - 1) * 100))
 </script>
 
 <template>
   <Panel header="Mortero" class="my-5">
-    <!--
     <template #icons>
       <div class="inline-flex gap-1">
-        <label class="text-sm text-muted-color">Detallado</label>
-        <ToggleSwitch v-model="mortar.isDetailed" disabled />
+        <label class="text-sm text-muted-color">Avanzado</label>
+        <ToggleSwitch v-model="advancedMode" />
       </div>
     </template>
-    -->
     <QuantityInput
       v-model="mortar.width"
       inputLabel="Ancho de la junta de mortero"
@@ -52,6 +58,18 @@ const mortar = defineModel<Mortar>({
           :inputId="index.toString()"
           name="cement" />
         <label :for="index.toString()" class="px-2">Cemento {{ cement.name }}</label>
+      </div>
+    </div>
+    <div v-if="advancedMode">
+      <h3 class="mb-2">Porcentaje de expansión del mortero en seco</h3>
+      <div class="flex justify-between items-center gap-3 mb-4">
+        <label>{{ dryWetPercentage.toFixed(0) }} %</label>
+        <Slider
+          class="grow"
+          v-model="dryWetPercentage"
+          :min="0"
+          :max="100"
+          @slideend="toDryWetFactor" />
       </div>
     </div>
   </Panel>

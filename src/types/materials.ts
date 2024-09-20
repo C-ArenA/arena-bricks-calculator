@@ -9,7 +9,6 @@ export type Brick = {
 
 export type Mortar = {
   width: number
-  isDetailed: boolean
   cementSandRatio: [number, number]
   dryWetFactor: number
   cement: Cement
