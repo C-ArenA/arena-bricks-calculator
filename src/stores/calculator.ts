@@ -47,6 +47,7 @@ export const useCalculatorStore = defineStore('calculator', () => {
     wallsArea,
     totalBricksNeeded,
     cementNeededBags,
+    cementNeededWeight,
     sandNeededVolume,
     waterNeeded,
     mortarDryVolume,
