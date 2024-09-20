@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import Card from 'primevue/card'
-import Button from 'primevue/button'
-import Dialog from 'primevue/dialog'
 import { useCalculatorStore } from '@/stores/calculator'
 import TablerPaperBag from '~icons/tabler/paper-bag'
 import HumbleiconsBox from '~icons/humbleicons/box'
@@ -16,7 +13,7 @@ const quotation = ref(false)
 </script>
 
 <template>
-  <div class="max-w-xl mx-auto p-8">
+  <div class="max-w-xl print:!max-w-none mx-auto p-8">
     <div class="mb-8">
       <h2 class="text-2xl font-bold text-color">Calculadora ArenA</h2>
       <p class="text-color">Hoja de Resultados</p>

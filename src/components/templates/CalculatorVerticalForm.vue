@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import WallsCollector from '../organisms/WallsCollector.vue'
-import Stepper from 'primevue/stepper'
-import Step from 'primevue/step'
-import StepItem from 'primevue/stepitem'
-import StepPanel from 'primevue/steppanel'
 import BrickSelect from '../organisms/BrickSelect.vue'
 import MortarForm from '../organisms/MortarForm.vue'
-import Button from 'primevue/button'
 import { useRouter } from 'vue-router'
 import { useCalculatorStore } from '@/stores/calculator'
 const calculatorStore = useCalculatorStore()

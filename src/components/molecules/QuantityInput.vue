@@ -1,8 +1,4 @@
 <script setup lang="ts">
-// Components
-import InputGroup from 'primevue/inputgroup'
-import InputGroupAddon from 'primevue/inputgroupaddon'
-import InputNumber from 'primevue/inputnumber'
 // Icons
 import FeInfo from '~icons/fe/info'
 // Imports
@@ -50,7 +46,7 @@ const fromBaseUnit = (quantity?: number, unit?: Unit): number | undefined => {
 <template>
   <div class="my-3">
     <label v-if="inputLabel" :for="inputId" class="mb-3 flex gap-2 items-center">
-      <Button v-if="instructions" class="inline" @click="showInstructions = !showInstructions">
+      <Button v-if="instructions" class="inline" @click="showInstructions = !showInstructions" unstyled>
         <FeInfo class="inline" />
       </Button>
       {{ inputLabel }}

@@ -1,10 +1,6 @@
 <script setup lang="ts">
 //https://wecivilengineers.wordpress.com/2018/03/28/how-to-calculate-quantity-of-cement-sand-water-in-mortar-of-14/
-import Panel from 'primevue/panel'
 import QuantityInput from '../molecules/QuantityInput.vue'
-import ToggleSwitch from 'primevue/toggleswitch'
-import RadioButton from 'primevue/radiobutton'
-import Slider from 'primevue/slider'
 import UilWall from '~icons/uil/wall'
 import type { Mortar } from '@/types/materials'
 import { units } from '@/data/units'

@@ -3,9 +3,6 @@ import PhWallFill from '~icons/ph/wall-fill'
 import MaterialSymbolsWidth from '~icons/material-symbols/width'
 import MaterialSymbolsHeight from '~icons/material-symbols/height'
 import CarbonArea from '~icons/carbon/area'
-import Button from 'primevue/button'
-import ToggleButton from 'primevue/togglebutton'
-import Panel from 'primevue/panel'
 import QuantityInput from '@/components/molecules/QuantityInput.vue'
 import PhRulerBold from '~icons/ph/ruler-bold'
 import MingcuteTextAreaFill from '~icons/mingcute/text-area-fill'
@@ -57,7 +54,7 @@ watchEffect(updateDimensions)
     </template>
     <template #icons>
       <div class="inline-flex gap-2 justify-center items-center">
-        <ToggleButton v-if="!collapsed" v-model="wall.justAreaMode" unstyled="true">
+        <ToggleButton v-if="!collapsed" v-model="wall.justAreaMode" unstyled>
           <PhRulerBold v-if="!wall.justAreaMode" />
           <MingcuteTextAreaFill v-if="wall.justAreaMode" />
         </ToggleButton>

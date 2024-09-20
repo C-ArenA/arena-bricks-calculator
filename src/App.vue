@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
-import Menubar from 'primevue/menubar'
 import { useRouter } from 'vue-router'
 import type { MenuItem } from 'primevue/menuitem'
 import { ref } from 'vue'

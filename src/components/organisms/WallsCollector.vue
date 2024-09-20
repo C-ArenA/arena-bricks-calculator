@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import WallForm from './WallForm.vue'
-import Button from 'primevue/button'
 import { type Wall } from '@/types/walls'
 import { defaultWall } from '@/defaults'
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Select from 'primevue/select'
 import { computed, onMounted, watch } from 'vue'
 import type { Unit, DimensionString } from '@/types/quantities'
 import { dimensions, units } from '@/data/units'

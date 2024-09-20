@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Button from 'primevue/button'
 import RiArrowRightLine from '~icons/ri/arrow-right-line'
 import PhWallFill from '~icons/ph/wall-fill'
 </script>

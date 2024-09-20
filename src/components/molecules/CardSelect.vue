@@ -1,5 +1,4 @@
 <script setup lang="ts" generic="T">
-import Card from 'primevue/card'
 import { getCurrentInstance, ref, toRaw } from 'vue'
 
 defineProps<{
