@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import QuotationForm from '@/components/organisms/QuotationForm.vue';
 import { useCalculatorStore } from '@/stores/calculator'
 import { ref } from 'vue'
 const calculatorStore = useCalculatorStore()
@@ -127,7 +128,9 @@ const quotation = ref(false)
       </p>
     </div>
 
-    <Dialog v-model:visible="quotation" header="Formulario de Cotización"></Dialog>
+    <Dialog v-model:visible="quotation" header="Formulario de Cotización">
+      <QuotationForm @sent-quotation="quotation = false" />
+    </Dialog>
   </div>
 </template>
 
