@@ -16,12 +16,14 @@ const mortar = defineModel<Mortar>({
 
 <template>
   <Panel header="Mortero" class="my-5">
+    <!--
     <template #icons>
       <div class="inline-flex gap-1">
         <label class="text-sm text-muted-color">Detallado</label>
         <ToggleSwitch v-model="mortar.isDetailed" disabled />
       </div>
     </template>
+    -->
     <QuantityInput
       v-model="mortar.width"
       inputLabel="Ancho de la junta de mortero"
