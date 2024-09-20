@@ -1,4 +1,4 @@
-import type { Brick } from '../types/materials'
+import type { Brick, Cement } from '../types/materials'
 
 export const bricks: Brick[] = [
   {
@@ -15,5 +15,31 @@ export const bricks: Brick[] = [
     width: 0.1,
     height: 0.15,
     length: 0.24,
+  },
+]
+
+export const validCementSandRatios: [number, number][] = [
+  [1, 2],
+  [1, 3],
+  [1, 4],
+  [1, 5],
+  [1, 6],
+]
+
+export const cements: Cement[] = [
+  {
+    name: 'Genérico',
+    bagWeight: 50, // kg
+    bagVolume: 0.034722,
+  },
+  {
+    name: 'IP30',
+    bagWeight: 50, // kg
+    bagVolume: 0.035525,
+  },
+  {
+    name: 'IP40',
+    bagWeight: 50, // kg
+    bagVolume: 0.037975,
   },
 ]

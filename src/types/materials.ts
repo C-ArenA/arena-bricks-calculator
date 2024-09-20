@@ -10,4 +10,14 @@ export type Brick = {
 export type Mortar = {
   width: number
   isDetailed: boolean
+  cementSandRatio: [number, number]
+  dryWetFactor: number
+  cement: Cement
+  waterCementWeightRatio: number
+}
+
+export type Cement = {
+  name: string
+  bagWeight: number // Kg
+  bagVolume: number // Especificado en el volumen de caja de las especificaciones técnicas del cemento
 }
