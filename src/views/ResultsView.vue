@@ -63,9 +63,9 @@ const quotation = ref(false)
       </template>
       <template #subtitle>
         <p class="text-center">
-          {{ calculatorStore.brick.length * 100 }} x
-          {{ (calculatorStore.brick.height * 100).toFixed(1) }} x
-          {{ calculatorStore.brick.width * 100 }} (cm)
+          {{ calculatorStore.brick.length / 10 }} x
+          {{ (calculatorStore.brick.height / 10).toFixed(1) }} x
+          {{ calculatorStore.brick.width / 10 }} (cm)
         </p>
       </template>
     </Card>
