@@ -29,6 +29,11 @@ const router = createRouter({
       },
       component: () => import('../views/ResultsView.vue'),
     },
+    {
+      path: '/admin/bricks',
+      name: 'bricks',
+      component: () => import('../views/BricksView.vue'),
+    }
   ],
 })
 
