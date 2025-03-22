@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import { useBrickStore } from '@/stores/brick'
+import { useProducedBrickStore } from '@/stores/producedBrick'
 import type { Brick } from '@/types/materials'
 import DataTable from 'primevue/datatable'
 import { useConfirm } from 'primevue/useconfirm'
 import { onMounted, ref } from 'vue'
 
+// STORES
+const brickStore = useBrickStore()
+const producedBrickStore = useProducedBrickStore()
+
+// VARIABLES
 const confirm = useConfirm()
-const bricks = ref<Brick[]>([])
 const updating = ref(false)
 const createVisible = ref(false)
+
+// METHODS
 const confirmDeletion = (brick: Brick) => {
   confirm.require({
     message: `Estas seguro de querer eliminar el ladrillo ${brick.name}?`,
@@ -17,47 +25,18 @@ const confirmDeletion = (brick: Brick) => {
     reject: () => {},
   })
 }
-const updateProducedBrick = (brick: Brick) => {
-  if (brick.is_produced) {
-    deleteProducedBrick(brick)
-    return
-  }
-  createProducedBrick(brick)
-}
-const fetchBricks = async () => {
-  const response = await fetch(import.meta.env.VITE_API_URL + '/v1/bricks')
-  if (response.ok) {
-    const json = await response.json()
-    bricks.value = json['data']
-    console.log(json['data'])
-  }
-}
-const createProducedBrick = async (brick: Brick) => {
+const updateProducedBrick = async (brick: Brick) => {
   updating.value = true
-  const response = await fetch(import.meta.env.VITE_API_URL + '/v1/produced-bricks', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      id: brick.id
-    })
-  })
+  const response = brick.is_produced ? await producedBrickStore.destroy(brick) : await producedBrickStore.create(brick)
   if (response.ok) {
-    await fetchBricks()
+    brick.is_produced = !brick.is_produced
   }
   updating.value = false
 }
-const deleteProducedBrick = async (brick: Brick) => {
-  updating.value = true
-  await fetch(import.meta.env.VITE_API_URL + '/v1/produced-bricks/' + brick.id, {
-    method: 'DELETE'
-  })
-  await fetchBricks()
-  updating.value = false
-}
+
+// HOOKS
 onMounted(() => {
-  fetchBricks()
+  brickStore.fetchAll()
 })
 </script>
 
@@ -84,14 +63,14 @@ onMounted(() => {
         <Button type="button" label="Save" @click="createVisible = false"></Button>
       </div>
     </Dialog>
-    <DataTable :value="bricks">
+    <DataTable :value="brickStore.bricks" :loading="updating">
       <template #header>
         <div class="flex flex-wrap items-center gap-6">
           <span class="text-xl font-bold">Ladrillos</span>
-          <Button icon="pi pi-plus" raised label="Crear" @click="createVisible = true"/>
+          <Button icon="pi pi-plus" raised label="Crear" @click="createVisible = true" />
         </div>
       </template>
-      <Column field="name" header="Nombre"></Column>
+      <Column field="name" header="Nombre" :frozen="true"></Column>
       <Column field="description" header="Descripción"></Column>
       <Column field="length" header="Largo"></Column>
       <Column field="height" header="Alto"></Column>
@@ -100,26 +79,27 @@ onMounted(() => {
         <template #body="slotProps">
           <ToggleSwitch
             :model-value="slotProps.data.is_produced"
-            @click="updateProducedBrick(slotProps.data)"
-            :disabled="updating" />
+            @click="updateProducedBrick(slotProps.data)"/>
         </template>
       </Column>
       <Column header="Acciones">
         <template #body="slotProps">
-          <Button
+          <div class="flex">
+            <Button
             icon="pi pi-pencil"
             severity="warning"
             rounded
             text
             @click="confirmDeletion(slotProps.data)"
             :disabled="updating" />
-          <Button
+            <Button
             icon="pi pi-trash"
             severity="danger"
             rounded
             text
             @click="confirmDeletion(slotProps.data)"
             :disabled="updating" />
+          </div>
         </template>
       </Column>
     </DataTable>
