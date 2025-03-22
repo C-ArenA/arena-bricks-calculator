@@ -13,6 +13,7 @@ declare module 'vue' {
     Card: typeof import('primevue/card')['default']
     CardSelect: typeof import('./src/components/molecules/CardSelect.vue')['default']
     Column: typeof import('primevue/column')['default']
+    ConfirmDialog: typeof import('primevue/confirmdialog')['default']
     Dialog: typeof import('primevue/dialog')['default']
     FeInfo: typeof import('~icons/fe/info')['default']
     HumbleiconsBox: typeof import('~icons/humbleicons/box')['default']

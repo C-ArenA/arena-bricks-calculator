@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import type { Brick } from '@/types/materials'
 import DataTable from 'primevue/datatable'
+import { useConfirm } from 'primevue/useconfirm'
 import { onMounted, ref } from 'vue'
 
+const confirm = useConfirm()
 const bricks = ref<Brick[]>([])
 const updating = ref(false)
+const confirmDeletion = (brick: Brick) => {
+  confirm.require({
+    message: `Estas seguro de querer eliminar el ladrillo ${brick.name}?`,
+    header: 'Eliminar ladrillo',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => console.log('deleted'),
+    reject: () => {},
+  })
+}
 const updateProducedBrick = (brick: Brick) => {
   if (brick.is_produced) {
     deleteProducedBrick(brick)
@@ -59,7 +70,28 @@ onMounted(() => {
       <Column field="width" header="Ancho"></Column>
       <Column header="En producción">
         <template #body="slotProps">
-          <ToggleSwitch :model-value="slotProps.data.is_produced" @click="updateProducedBrick(slotProps.data)" :disabled="updating"/>
+          <ToggleSwitch
+            :model-value="slotProps.data.is_produced"
+            @click="updateProducedBrick(slotProps.data)"
+            :disabled="updating" />
+        </template>
+      </Column>
+      <Column header="Acciones">
+        <template #body="slotProps">
+          <Button
+            icon="pi pi-pencil"
+            severity="warning"
+            rounded
+            text
+            @click="confirmDeletion(slotProps.data)"
+            :disabled="updating" />
+          <Button
+            icon="pi pi-trash"
+            severity="danger"
+            rounded
+            text
+            @click="confirmDeletion(slotProps.data)"
+            :disabled="updating" />
         </template>
       </Column>
     </DataTable>
