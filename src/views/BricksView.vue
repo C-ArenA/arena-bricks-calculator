@@ -7,6 +7,7 @@ import { onMounted, ref } from 'vue'
 const confirm = useConfirm()
 const bricks = ref<Brick[]>([])
 const updating = ref(false)
+const createVisible = ref(false)
 const confirmDeletion = (brick: Brick) => {
   confirm.require({
     message: `Estas seguro de querer eliminar el ladrillo ${brick.name}?`,
@@ -62,7 +63,34 @@ onMounted(() => {
 
 <template>
   <div>
+    <Dialog v-model:visible="createVisible" modal header="Edit Profile" :style="{ width: '25rem' }">
+      <span class="text-surface-500 dark:text-surface-400 block mb-8">
+        Update your information.
+      </span>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="username" class="font-semibold w-24">Username</label>
+        <InputText id="username" class="flex-auto" autocomplete="off" />
+      </div>
+      <div class="flex items-center gap-4 mb-8">
+        <label for="email" class="font-semibold w-24">Email</label>
+        <InputText id="email" class="flex-auto" autocomplete="off" />
+      </div>
+      <div class="flex justify-end gap-2">
+        <Button
+          type="button"
+          label="Cancel"
+          severity="secondary"
+          @click="createVisible = false"></Button>
+        <Button type="button" label="Save" @click="createVisible = false"></Button>
+      </div>
+    </Dialog>
     <DataTable :value="bricks">
+      <template #header>
+        <div class="flex flex-wrap items-center gap-6">
+          <span class="text-xl font-bold">Ladrillos</span>
+          <Button icon="pi pi-plus" raised label="Crear" @click="createVisible = true"/>
+        </div>
+      </template>
       <Column field="name" header="Nombre"></Column>
       <Column field="description" header="Descripción"></Column>
       <Column field="length" header="Largo"></Column>
