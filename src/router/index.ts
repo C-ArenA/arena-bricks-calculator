@@ -30,10 +30,22 @@ const router = createRouter({
       component: () => import('../views/ResultsView.vue'),
     },
     {
-      path: '/admin/bricks',
-      name: 'bricks',
-      component: () => import('../views/BricksView.vue'),
-    }
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminView.vue'),
+      children: [
+        {
+          path: '',
+          name: 'dashboard',
+          component: () => import('../views/DashboardView.vue'),
+        },
+        {
+          path: 'bricks',
+          name: 'bricks',
+          component: () => import('../views/BricksView.vue'),
+        },
+      ],
+    },
   ],
 })
 

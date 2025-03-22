@@ -22,6 +22,7 @@ declare module 'vue' {
     InputNumber: typeof import('primevue/inputnumber')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LightDarkToggle: typeof import('./src/components/atoms/LightDarkToggle.vue')['default']
+    Menu: typeof import('primevue/menu')['default']
     Menubar: typeof import('primevue/menubar')['default']
     MingcuteTextAreaFill: typeof import('~icons/mingcute/text-area-fill')['default']
     MortarForm: typeof import('./src/components/organisms/MortarForm.vue')['default']
