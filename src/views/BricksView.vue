@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 
 const bricks = ref<Brick[]>([])
 onMounted(() => {
-  fetch('http://localhost:8000/api/v1/bricks').then((response) => {
+  fetch( import.meta.env.VITE_API_URL + '/v1/bricks').then((response) => {
     if (response.ok) {
       response.json().then((data) => {
         bricks.value = data["data"]
