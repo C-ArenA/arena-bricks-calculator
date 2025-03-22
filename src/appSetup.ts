@@ -5,7 +5,7 @@ import PrimeVue from 'primevue/config'
 import Aura from '@primevue/themes/aura'
 import router from './router'
 import type { App } from 'vue'
-import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmationService from 'primevue/confirmationservice'
 
 export default (app: App) => {
   app.use(createPinia())
@@ -18,5 +18,5 @@ export default (app: App) => {
       },
     },
   }),
-  app.use(ConfirmationService)
+    app.use(ConfirmationService)
 }

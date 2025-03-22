@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import QuotationForm from '@/components/organisms/QuotationForm.vue';
+import QuotationForm from '@/components/organisms/QuotationForm.vue'
 import { useCalculatorStore } from '@/stores/calculator'
 import { ref } from 'vue'
 const calculatorStore = useCalculatorStore()

@@ -27,7 +27,9 @@ const confirmDeletion = (brick: Brick) => {
 }
 const updateProducedBrick = async (brick: Brick) => {
   updating.value = true
-  const response = brick.is_produced ? await producedBrickStore.destroy(brick) : await producedBrickStore.create(brick)
+  const response = brick.is_produced
+    ? await producedBrickStore.destroy(brick)
+    : await producedBrickStore.create(brick)
   if (response.ok) {
     brick.is_produced = !brick.is_produced
   }
@@ -79,26 +81,26 @@ onMounted(() => {
         <template #body="slotProps">
           <ToggleSwitch
             :model-value="slotProps.data.is_produced"
-            @click="updateProducedBrick(slotProps.data)"/>
+            @click="updateProducedBrick(slotProps.data)" />
         </template>
       </Column>
       <Column header="Acciones">
         <template #body="slotProps">
           <div class="flex">
             <Button
-            icon="pi pi-pencil"
-            severity="warning"
-            rounded
-            text
-            @click="confirmDeletion(slotProps.data)"
-            :disabled="updating" />
+              icon="pi pi-pencil"
+              severity="warning"
+              rounded
+              text
+              @click="confirmDeletion(slotProps.data)"
+              :disabled="updating" />
             <Button
-            icon="pi pi-trash"
-            severity="danger"
-            rounded
-            text
-            @click="confirmDeletion(slotProps.data)"
-            :disabled="updating" />
+              icon="pi pi-trash"
+              severity="danger"
+              rounded
+              text
+              @click="confirmDeletion(slotProps.data)"
+              :disabled="updating" />
           </div>
         </template>
       </Column>

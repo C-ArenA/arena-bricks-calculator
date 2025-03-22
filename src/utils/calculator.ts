@@ -7,7 +7,7 @@ export const calculateTotalWallsArea = (walls: Wall[]) => {
 
 export const calculateBricksNeeded = (walls: Wall[], brick: Brick, mortar: Mortar) => {
   const totalWallsArea = calculateTotalWallsArea(walls)
-  const totalBrickArea = (brick.length/1000 + mortar.width) * (brick.height/1000 + mortar.width)
+  const totalBrickArea = (brick.length / 1000 + mortar.width) * (brick.height / 1000 + mortar.width)
 
   return Math.ceil(totalWallsArea / totalBrickArea)
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useCalculatorStore } from '@/stores/calculator';
+import { ref } from 'vue'
+import { useCalculatorStore } from '@/stores/calculator'
 const calculatorStore = useCalculatorStore()
 const emit = defineEmits(['sentQuotation'])
 const name = ref('')
@@ -18,7 +18,9 @@ const sendQuotation = () => {
   🚩 Dirección: ${address.value}
   `
   emit('sentQuotation')
-  window.open('https://api.whatsapp.com/send/?phone=59173745255&text=' + encodeURIComponent(message))
+  window.open(
+    'https://api.whatsapp.com/send/?phone=59173745255&text=' + encodeURIComponent(message),
+  )
 }
 </script>
 
@@ -26,19 +28,39 @@ const sendQuotation = () => {
   <form novalidate @submit.prevent="sendQuotation">
     <div class="flex items-center gap-4 mb-4">
       <label for="quotation-name" class="font-semibold w-24">Nombre</label>
-      <InputText v-model="name" id="quotation-name" type="text" autocomplete="off" class="flex-auto" />
+      <InputText
+        v-model="name"
+        id="quotation-name"
+        type="text"
+        autocomplete="off"
+        class="flex-auto" />
     </div>
     <div class="flex items-center gap-4 mb-4">
       <label for="quotation-name" class="font-semibold w-24">Correo Electrónico</label>
-      <InputText v-model="email" id="quotation-name" type="text" autocomplete="off" class="flex-auto" />
+      <InputText
+        v-model="email"
+        id="quotation-name"
+        type="text"
+        autocomplete="off"
+        class="flex-auto" />
     </div>
     <div class="flex items-center gap-4 mb-4">
       <label for="quotation-name" class="font-semibold w-24">Celular</label>
-      <InputText v-model="phone" id="quotation-name" type="text" autocomplete="off" class="flex-auto" />
+      <InputText
+        v-model="phone"
+        id="quotation-name"
+        type="text"
+        autocomplete="off"
+        class="flex-auto" />
     </div>
     <div class="flex items-center gap-4 mb-4">
       <label for="quotation-name" class="font-semibold w-24">Su Dirección</label>
-      <InputText v-model="address" id="quotation-name" type="text" autocomplete="off" class="flex-auto" />
+      <InputText
+        v-model="address"
+        id="quotation-name"
+        type="text"
+        autocomplete="off"
+        class="flex-auto" />
     </div>
     <Button type="submit" label="Solicitar Cotización" class="mt-8" />
   </form>

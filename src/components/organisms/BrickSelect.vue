@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import CardSelect from '../molecules/CardSelect.vue'
 import { type Brick } from '@/types/materials'
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue'
 import { useProducedBrickStore } from '@/stores/producedBrick'
 
 const producedBrickStore = useProducedBrickStore()
@@ -18,7 +18,7 @@ onMounted(() => {
     titleKey="name"
     descriptionKey="description">
     <template #subtitle="{ option }">
-      L: {{ option.length }} x H: {{ option.height }} x W: {{ option.width}}
+      L: {{ option.length }} x H: {{ option.height }} x W: {{ option.width }}
     </template>
   </CardSelect>
 </template>
