@@ -5,6 +5,7 @@ import type { MenuItem } from 'primevue/menuitem'
 import { ref } from 'vue'
 import LightDarkToggle from './components/atoms/LightDarkToggle.vue'
 const router = useRouter()
+const route = router.currentRoute
 const menuItems = ref<MenuItem[]>([
   {
     label: 'Home',
@@ -23,11 +24,17 @@ const menuItems = ref<MenuItem[]>([
     target: '_blank',
     visible: !import.meta.env.PROD,
   },
+  {
+    label: 'Admin',
+    icon: 'pi pi-cog',
+    command: () => router.push('/admin'),
+    visible: !import.meta.env.PROD,
+  },
 ])
 </script>
 
 <template>
-  <header class="print:!hidden">
+  <header class="print:!hidden" v-if="!route.path.includes('/admin')">
     <Menubar class="m-2" :model="menuItems">
       <template #start>
         <img src="@/assets/logos/imago_arena.png" alt="logo" class="max-h-6 mr-2" />
