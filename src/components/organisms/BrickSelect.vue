@@ -2,24 +2,19 @@
 import CardSelect from '../molecules/CardSelect.vue'
 import { type Brick } from '@/types/materials'
 import { onMounted, ref } from 'vue';
+import { useProducedBrickStore } from '@/stores/producedBrick'
 
+const producedBrickStore = useProducedBrickStore()
 const selectedBrick = defineModel<Brick>()
-const bricks = ref<Brick[]>([])
 onMounted(() => {
-  fetch(import.meta.env.VITE_API_URL + '/v1/produced-bricks').then((response) => {
-    if (response.ok) {
-      response.json().then((data) => {
-        bricks.value = data["data"]
-      })
-    }
-  })
+  producedBrickStore.fetchAll()
 })
 </script>
 
 <template>
   <CardSelect
     v-model="selectedBrick"
-    :options="bricks"
+    :options="producedBrickStore.producedBricks"
     titleKey="name"
     descriptionKey="description">
     <template #subtitle="{ option }">
