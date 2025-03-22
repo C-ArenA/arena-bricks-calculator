@@ -1,10 +1,12 @@
 export type Brick = {
+  id: number
   name: string
   description: string
   img?: string
   length: number
   height: number
   width: number
+  is_produced: boolean
 }
 
 export type Mortar = {
