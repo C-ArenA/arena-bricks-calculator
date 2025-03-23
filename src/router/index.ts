@@ -32,17 +32,17 @@ const router = createRouter({
     {
       path: '/admin',
       name: 'admin',
-      component: () => import('../views/AdminView.vue'),
+      component: () => import('../views/Admin/AdminView.vue'),
       children: [
         {
           path: '',
           name: 'dashboard',
-          component: () => import('../views/DashboardView.vue'),
+          component: () => import('../views/Admin/DashboardView.vue'),
         },
         {
           path: 'bricks',
           name: 'bricks',
-          component: () => import('../views/BricksView.vue'),
+          component: () => import('../views/Admin/Bricks/BricksView.vue'),
         },
       ],
     },
