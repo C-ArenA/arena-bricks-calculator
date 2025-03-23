@@ -1,7 +1,7 @@
 export type Brick = {
   id: number
   name: string
-  description: string
+  description?: string
   img?: string
   length: number
   height: number
