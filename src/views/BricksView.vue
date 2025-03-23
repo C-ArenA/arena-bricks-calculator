@@ -14,7 +14,7 @@ const producedBrickStore = useProducedBrickStore()
 const confirm = useConfirm()
 const updating = ref(false)
 const createVisible = ref(false)
-
+const showDialogVisible = ref(false)
 // METHODS
 const confirmDeletion = (brick: Brick) => {
   confirm.require({
@@ -36,6 +36,11 @@ const updateProducedBrick = async (brick: Brick) => {
   updating.value = false
 }
 
+const openShowDialog = (brick: Brick) => {
+  brickStore.show(brick.id)
+  showDialogVisible.value = true
+}
+
 // HOOKS
 onMounted(() => {
   brickStore.fetchAll()
@@ -44,6 +49,35 @@ onMounted(() => {
 
 <template>
   <div>
+    <Dialog
+      v-model:visible="showDialogVisible"
+      modal
+      header="Ver Ladrillo"
+      :style="{ width: '25rem' }">
+      <span class="text-surface-500 dark:text-surface-400 block mb-8">
+        Ver detalles del ladrillo {{ brickStore.selectedBrick?.name }}
+      </span>
+      <div class=" mb-4">
+        <h1 class="mb-2 text-sm font-semibold">Nombre</h1>
+        <p>{{ brickStore.selectedBrick?.name }}</p>
+      </div>
+      <div class=" mb-4">
+        <h1 class="mb-2 text-sm font-semibold">Descripción</h1>
+        <p>{{ brickStore.selectedBrick?.description }}</p>
+      </div>
+      <div class=" mb-4">
+        <h1 class="mb-2 text-sm font-semibold">Alto</h1>
+        <p>{{ brickStore.selectedBrick?.height }} mm</p>
+      </div>
+      <div class=" mb-4">
+        <h1 class="mb-2 text-sm font-semibold">Ancho</h1>
+        <p>{{ brickStore.selectedBrick?.width }} mm</p>
+      </div>
+      <div class=" mb-4">
+        <h1 class="mb-2 text-sm font-semibold">Largo</h1>
+        <p>{{ brickStore.selectedBrick?.length }} mm</p>
+      </div>
+    </Dialog>
     <Dialog v-model:visible="createVisible" modal header="Edit Profile" :style="{ width: '25rem' }">
       <span class="text-surface-500 dark:text-surface-400 block mb-8">
         Update your information.
@@ -87,6 +121,13 @@ onMounted(() => {
       <Column header="Acciones">
         <template #body="slotProps">
           <div class="flex">
+            <Button
+              icon="pi pi-eye"
+              severity="info"
+              rounded
+              text
+              @click="openShowDialog(slotProps.data)"
+              :disabled="updating" />
             <Button
               icon="pi pi-pencil"
               severity="warning"
