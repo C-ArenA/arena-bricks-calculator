@@ -5,6 +5,9 @@ import type { Brick } from '@/types/materials'
 import DataTable from 'primevue/datatable'
 import { useConfirm } from 'primevue/useconfirm'
 import { onMounted, ref } from 'vue'
+import ShowBrickView from './ShowBrickView.vue'
+import CreateBrickForm from './CreateBrickForm.vue'
+import EditBrickForm from './EditBrickForm.vue'
 
 // STORES
 const brickStore = useBrickStore()
@@ -13,7 +16,6 @@ const producedBrickStore = useProducedBrickStore()
 // VARIABLES
 const confirm = useConfirm()
 const updating = ref(false)
-const createVisible = ref(false)
 const showDialogVisible = ref(false)
 
 // METHODS
@@ -41,6 +43,10 @@ const openShowDialog = (brick: Brick) => {
   brickStore.get(brick.id)
   showDialogVisible.value = true
 }
+const openEditDialog = async (brick: Brick) => {
+  await brickStore.get(brick.id)
+  brickStore.editBrickDialog = true
+}
 
 // HOOKS
 onMounted(() => {
@@ -55,56 +61,19 @@ onMounted(() => {
       modal
       header="Ver Ladrillo"
       :style="{ width: '25rem' }">
-      <span class="text-surface-500 dark:text-surface-400 block mb-8">
-        Ver detalles del ladrillo {{ brickStore.selectedBrick?.name }}
-      </span>
-      <div class=" mb-4">
-        <h1 class="mb-2 text-sm font-semibold">Nombre</h1>
-        <p>{{ brickStore.selectedBrick?.name }}</p>
-      </div>
-      <div class=" mb-4">
-        <h1 class="mb-2 text-sm font-semibold">Descripción</h1>
-        <p>{{ brickStore.selectedBrick?.description }}</p>
-      </div>
-      <div class=" mb-4">
-        <h1 class="mb-2 text-sm font-semibold">Alto</h1>
-        <p>{{ brickStore.selectedBrick?.height }} mm</p>
-      </div>
-      <div class=" mb-4">
-        <h1 class="mb-2 text-sm font-semibold">Ancho</h1>
-        <p>{{ brickStore.selectedBrick?.width }} mm</p>
-      </div>
-      <div class=" mb-4">
-        <h1 class="mb-2 text-sm font-semibold">Largo</h1>
-        <p>{{ brickStore.selectedBrick?.length }} mm</p>
-      </div>
+      <ShowBrickView />
     </Dialog>
-    <Dialog v-model:visible="createVisible" modal header="Edit Profile" :style="{ width: '25rem' }">
-      <span class="text-surface-500 dark:text-surface-400 block mb-8">
-        Update your information.
-      </span>
-      <div class="flex items-center gap-4 mb-4">
-        <label for="username" class="font-semibold w-24">Username</label>
-        <InputText id="username" class="flex-auto" autocomplete="off" />
-      </div>
-      <div class="flex items-center gap-4 mb-8">
-        <label for="email" class="font-semibold w-24">Email</label>
-        <InputText id="email" class="flex-auto" autocomplete="off" />
-      </div>
-      <div class="flex justify-end gap-2">
-        <Button
-          type="button"
-          label="Cancel"
-          severity="secondary"
-          @click="createVisible = false"></Button>
-        <Button type="button" label="Save" @click="createVisible = false"></Button>
-      </div>
+    <Dialog v-model:visible="brickStore.createBrickDialog" modal header="Crear Ladrillo" :style="{ width: '25rem' }">
+      <CreateBrickForm />
+    </Dialog>
+    <Dialog v-model:visible="brickStore.editBrickDialog" modal header="Editar Ladrillo" :style="{ width: '25rem' }">
+      <EditBrickForm />
     </Dialog>
     <DataTable :value="brickStore.bricks" :loading="updating">
       <template #header>
         <div class="flex flex-wrap items-center gap-6">
           <span class="text-xl font-bold">Ladrillos</span>
-          <Button icon="pi pi-plus" raised label="Crear" @click="createVisible = true" />
+          <Button icon="pi pi-plus" raised label="Crear" @click="brickStore.createBrickDialog = true" />
         </div>
       </template>
       <Column field="name" header="Nombre" :frozen="true"></Column>
@@ -134,7 +103,7 @@ onMounted(() => {
               severity="warning"
               rounded
               text
-              @click="confirmDeletion(slotProps.data)"
+              @click="openEditDialog(slotProps.data)"
               :disabled="updating" />
             <Button
               icon="pi pi-trash"
