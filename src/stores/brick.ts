@@ -1,3 +1,4 @@
+import ApiError from '@/errors/ApiError'
 import {
   createBrick,
   deleteBrick,
@@ -7,11 +8,15 @@ import {
 } from '@/services/bricksService'
 import type { Brick } from '@/types/materials'
 import { defineStore } from 'pinia'
+import { useToast } from 'primevue/usetoast'
 import { computed, ref } from 'vue'
 
 export const useBrickStore = defineStore('brick', () => {
+  const toast = useToast()
   const bricks = ref<Brick[]>([])
   const selectedBrick = ref<Brick | null>(null)
+  const createBrickDialog = ref(false)
+  const editBrickDialog = ref(false)
   const load = async () => {
     try {
       const json = await getBricks()
@@ -32,16 +37,42 @@ export const useBrickStore = defineStore('brick', () => {
     try {
       const json = await createBrick(brick)
       bricks.value.push(json.data)
+      createBrickDialog.value = false
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Ladrillo creado',
+      })
     } catch (error) {
-      console.error(error)
+      if (error instanceof ApiError) {
+        toast.add({
+          severity: 'error',
+          summary: error.statusCode.toString(),
+          detail: error.message,
+        })
+        return
+      }
     }
   }
   const edit = async (brick: Brick) => {
     try {
       const json = await updateBrick(brick)
       bricks.value = bricks.value.map((b) => (b.id === json.data.id ? json.data : b))
+      editBrickDialog.value = false
+      toast.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Ladrillo actualizado',
+      })
     } catch (error) {
-      console.error(error)
+      if (error instanceof ApiError) {
+        toast.add({
+          severity: 'error',
+          summary: error.statusCode.toString(),
+          detail: error.message,
+        })
+        return
+      }
     }
   }
   const remove = async (id: number) => {
@@ -55,6 +86,8 @@ export const useBrickStore = defineStore('brick', () => {
   return {
     bricks,
     selectedBrick,
+    createBrickDialog,
+    editBrickDialog,
     load,
     get,
     add,
