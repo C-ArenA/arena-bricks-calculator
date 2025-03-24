@@ -21,3 +21,8 @@ export async function handleResponse<T>(response: Response): Promise<SuccessfulA
     throw new ApiError(message, response.status)
   }
 }
+
+export const apiHeaders = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+}
