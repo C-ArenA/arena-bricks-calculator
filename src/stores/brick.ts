@@ -1,3 +1,10 @@
+import {
+  createBrick,
+  deleteBrick,
+  getBrick,
+  getBricks,
+  updateBrick,
+} from '@/services/bricksService'
 import type { Brick } from '@/types/materials'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
@@ -5,25 +12,53 @@ import { computed, ref } from 'vue'
 export const useBrickStore = defineStore('brick', () => {
   const bricks = ref<Brick[]>([])
   const selectedBrick = ref<Brick | null>(null)
-  const fetchAll = async () => {
-    const response = await fetch(import.meta.env.VITE_API_URL + '/v1/bricks')
-    if (response.ok) {
-      const json = await response.json()
-      bricks.value = json['data']
+  const load = async () => {
+    try {
+      const json = await getBricks()
+      bricks.value = json.data
+    } catch (error) {
+      console.error(error)
     }
   }
-  const show = async (id: number) => {
-    const response = await fetch(import.meta.env.VITE_API_URL + '/v1/bricks/' + id)
-    if (response.ok) {
-      const json = await response.json()
-      selectedBrick.value = json['data']
+  const get = async (id: number) => {
+    try {
+      const json = await getBrick(id)
+      selectedBrick.value = json.data
+    } catch (error) {
+      console.error(error)
     }
-    return response
+  }
+  const add = async (brick: Brick) => {
+    try {
+      const json = await createBrick(brick)
+      bricks.value.push(json.data)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const edit = async (brick: Brick) => {
+    try {
+      const json = await updateBrick(brick)
+      bricks.value = bricks.value.map((b) => (b.id === json.data.id ? json.data : b))
+    } catch (error) {
+      console.error(error)
+    }
+  }
+  const remove = async (id: number) => {
+    try {
+      await deleteBrick(id)
+      bricks.value = bricks.value.filter((b) => b.id !== id)
+    } catch (error) {
+      console.error(error)
+    }
   }
   return {
-    fetchAll,
     bricks,
     selectedBrick,
-    show,
+    load,
+    get,
+    add,
+    edit,
+    remove,
   }
 })
