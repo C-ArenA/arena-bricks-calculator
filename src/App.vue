@@ -44,6 +44,7 @@ const menuItems = ref<MenuItem[]>([
       </template>
     </Menubar>
   </header>
+  <Toast />
   <ConfirmDialog />
   <main class="px-3">
     <RouterView />

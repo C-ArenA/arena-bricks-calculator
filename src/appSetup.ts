@@ -6,6 +6,7 @@ import Aura from '@primevue/themes/aura'
 import router from './router'
 import type { App } from 'vue'
 import ConfirmationService from 'primevue/confirmationservice'
+import ToastService from 'primevue/toastservice'
 
 export default (app: App) => {
   app.use(createPinia())
@@ -17,6 +18,7 @@ export default (app: App) => {
         darkModeSelector: '.arena-bricks-calculator-dark-mode',
       },
     },
-  }),
-    app.use(ConfirmationService)
+  })
+  app.use(ConfirmationService)
+  app.use(ToastService)
 }

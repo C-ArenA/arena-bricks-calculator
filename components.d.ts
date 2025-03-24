@@ -43,6 +43,8 @@ declare module 'vue' {
     StepPanel: typeof import('primevue/steppanel')['default']
     Stepper: typeof import('primevue/stepper')['default']
     TablerPaperBag: typeof import('~icons/tabler/paper-bag')['default']
+    Textarea: typeof import('primevue/textarea')['default']
+    Toast: typeof import('primevue/toast')['default']
     ToggleButton: typeof import('primevue/togglebutton')['default']
     ToggleSwitch: typeof import('primevue/toggleswitch')['default']
     UnitsSelect: typeof import('./src/components/atoms/UnitsSelect.vue')['default']
