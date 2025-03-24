@@ -15,13 +15,14 @@ const confirm = useConfirm()
 const updating = ref(false)
 const createVisible = ref(false)
 const showDialogVisible = ref(false)
+
 // METHODS
 const confirmDeletion = (brick: Brick) => {
   confirm.require({
     message: `Estas seguro de querer eliminar el ladrillo ${brick.name}?`,
     header: 'Eliminar ladrillo',
     icon: 'pi pi-exclamation-triangle',
-    accept: () => console.log('deleted'),
+    accept: () => brickStore.remove(brick.id),
     reject: () => {},
   })
 }
@@ -37,13 +38,13 @@ const updateProducedBrick = async (brick: Brick) => {
 }
 
 const openShowDialog = (brick: Brick) => {
-  brickStore.show(brick.id)
+  brickStore.get(brick.id)
   showDialogVisible.value = true
 }
 
 // HOOKS
 onMounted(() => {
-  brickStore.fetchAll()
+  brickStore.load()
 })
 </script>
 
